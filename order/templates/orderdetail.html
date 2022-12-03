@@ -1,0 +1,287 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% include 'orderbase.html' %}
+<div class="col-lg-8 col-md-8 col-12">
+        <div class="ml-0 ml-md-4">
+         <div class="d-none d-md-block">
+          <div class="row mb-md-5">
+           <div class="col">
+            <h5 class="mb-1 text-white">
+             Order Details
+            </h5>
+            <p class="mb-0 text-white small">
+             You have full control to manage your own account setting.
+            </p>
+           </div>
+           <div class="col-auto">
+            <a class="btn btn-primary btn-sm" href="orders.html">
+             <i class="ti-angle-left">
+             </i>
+             Go Back
+            </a>
+           </div>
+          </div>
+         </div>
+         <div class="card">
+          <div class="card-body">
+          
+           <div class="cart_product border-0">
+            <div class="cart_item px-0">
+             <div class="cart_item_image">
+              <img alt="shop" src="/media/{{data.product.image}}"/>
+             </div>
+             <div class="c-item-body">
+              <div class="cart_item_title mb-2">
+               <h4>
+                {{data.product.product_name}}
+               </h4>
+               <p class="small mb-0 text-muted">
+                bottle of 60 capsules
+               </p>
+              </div>
+              <div class="cart_item_price">
+               <div class="product-price">
+                <span>
+                 <strong>
+                  â¹{{data.product.mrp}}
+                 </strong>
+                 <del>
+                  â¹1,000
+                 </del>
+                 <small class="product-discountPercentage">
+                  ({{data.product.offerpercentage}}% OFF)
+                 </small>
+                </span>
+               </div>
+              
+               <div class="cart_product_remove">
+                <a href="#">
+                 <i class="ti-truck">
+                 </i>
+                 Return Item
+                </a>
+               </div>
+              </div>
+             </div>
+            
+            </div>
+           </div>
+       
+           <div class="row mt-4">
+            <div class="col-lg-12">
+             <div class="border p-3 mb-4">
+              <h5 class="details">
+               Order Info
+              </h5>
+              <div class="row no-gutters">
+               <div class="col-auto">
+                <i class="ti-map-alt text-secondary mr-2">
+                </i>
+               </div>
+               <div class="col">
+                <p class="text-muted small mb-2">
+                 <strong>
+                  Delevery Address:
+                 </strong>
+                 {{addr.address}}
+                </p>
+               </div>
+              </div>
+              <div class="row no-gutters">
+               <div class="col-auto">
+                <i class="ti-mobile text-secondary mr-2">
+                </i>
+               </div>
+               <div class="col">
+                <p class="text-muted small mb-0">
+                 <strong>
+                  Phone Number:
+                 </strong>
+                 {{addr.mobile}}
+                </p>
+               </div>
+              </div>
+              <div class="row no-gutters">
+               <div class="col-auto">
+                <i class="ti-credit-card text-secondary mr-2">
+                </i>
+               </div>
+               <div class="col">
+                <p class="text-muted small mb-2">
+                 <strong>
+                  Payment Type:
+                 </strong>
+                 Stripe
+                </p>
+               </div>
+              </div>
+              <div class="row no-gutters">
+               <div class="col-auto">
+                <i class="ti-calendar text-secondary mr-2">
+                </i>
+               </div>
+               <div class="col">
+                <p class="text-muted small mb-2">
+                 <strong>
+                  Order Receive On:
+                 </strong>
+                 {{data.order_date}}
+                </p>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+           <ul class="timeline mt-4">
+            <!-- .timeline-item -->
+            <li class="timeline-item active">
+             <!-- .timeline-figure -->
+             <div class="timeline-figure">
+              <span class="tile tile-circle tile-sm">
+               <i class="ti-arrow-circle-down">
+               </i>
+              </span>
+             </div>
+             <!-- /.timeline-figure -->
+             <!-- .timeline-body -->
+             <div class="timeline-body">
+              <!-- .media -->
+              <div class="media">
+               <!-- .media-body -->
+               <div class="media-body">
+                <h6 class="timeline-heading">
+                 Order placed
+                </h6>
+               </div>
+               <!-- /.media-body -->
+               <!-- .media-right -->
+               <div class="d-none d-sm-block">
+                <span class="timeline-date">
+                 About a minute ago
+                </span>
+               </div>
+               <!-- /.media-right -->
+              </div>
+              <!-- /.media -->
+             </div>
+             <!-- /.timeline-body -->
+            </li>
+            <!-- /.timeline-item -->
+            <!-- .timeline-item -->
+            <li class="timeline-item active">
+             <!-- .timeline-figure -->
+             <div class="timeline-figure">
+              <span class="tile tile-circle tile-sm">
+               <i class="ti-arrow-circle-down">
+               </i>
+              </span>
+             </div>
+             <!-- /.timeline-figure -->
+             <!-- .timeline-body -->
+             <div class="timeline-body">
+              <!-- .media -->
+              <div class="media">
+               <!-- .media-body -->
+               <div class="media-body">
+                <h6 class="timeline-heading">
+                 <a class="text-link" href="#">
+                  Order Ready
+                 </a>
+                </h6>
+               </div>
+               <!-- /.media-body -->
+               <!-- .media-right -->
+               <div class="d-none d-sm-block">
+                <span class="timeline-date">
+                 3 hours ago
+                </span>
+               </div>
+               <!-- /.media-right -->
+              </div>
+              <!-- /.media -->
+             </div>
+             <!-- /.timeline-body -->
+            </li>
+            <!-- /.timeline-item -->
+            <li class="timeline-item">
+             <!-- .timeline-figure -->
+             <div class="timeline-figure">
+              <span class="tile tile-circle tile-sm">
+               <i class="ti-arrow-circle-down">
+               </i>
+              </span>
+             </div>
+             <!-- /.timeline-figure -->
+             <!-- .timeline-body -->
+             <div class="timeline-body">
+              <!-- .media -->
+              <div class="media">
+               <!-- .media-body -->
+               <div class="media-body">
+                <h6 class="timeline-heading">
+                 <a class="text-link" href="#">
+                  Way to deliver
+                 </a>
+                </h6>
+               </div>
+               <!-- /.media-body -->
+               <!-- .media-right -->
+               <div class="d-none d-sm-block">
+                <span class="timeline-date">
+                 3 hours ago
+                </span>
+               </div>
+               <!-- /.media-right -->
+              </div>
+              <!-- /.media -->
+             </div>
+             <!-- /.timeline-body -->
+            </li>
+            <!-- /.timeline-item -->
+            <li class="timeline-item">
+             <!-- .timeline-figure -->
+             <div class="timeline-figure">
+              <span class="tile tile-circle tile-sm">
+               <i class="ti-arrow-circle-down">
+               </i>
+              </span>
+             </div>
+             <!-- /.timeline-figure -->
+             <!-- .timeline-body -->
+             <div class="timeline-body">
+              <!-- .media -->
+              <div class="media">
+               <!-- .media-body -->
+               <div class="media-body">
+                <h6 class="timeline-heading">
+                 <a class="text-link" href="#">
+                  Delivered successfully
+                 </a>
+                </h6>
+               </div>
+               <!-- /.media-body -->
+               <!-- .media-right -->
+               <div class="d-none d-sm-block">
+                <span class="timeline-date">
+                 3 hours ago
+                </span>
+               </div>
+               <!-- /.media-right -->
+              </div>
+              <!-- /.media -->
+             </div>
+             <!-- /.timeline-body -->
+            </li>
+            <!-- /.timeline-item -->
+           </ul>
+          </div>
+          <!-- /.card-body -->
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </main>
+{% endblock %}

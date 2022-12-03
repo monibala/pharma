@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+    .k{
+        margin-left:60px;
+        color:#fc0c3a;
+    }
+
+
+    .a{
+        background:#fc0c3a;
+        color:white;
+        border:none;
+        width:100px;
+        height:40px;
+    
+        font-size:15px;
+    
+    }
+
+    .b{
+        margin-left:-100px;
+    }
+
+
+    
+</style>
+
+<br><br>
+
+{% comment %} <h3 class='k'>Register yourself to secure shopping!!</h3> {% endcomment %}
+
+<br><br>
+
+
+<main class="main">
+    <div class="">
+        <div class="container">
+           
+        </div>
+    </div>
+    <section class="pt-150 pb-150">
+        <div class="container">
+            <div class="row">
+                <!-- {% if messages %}
+	
+                                                
+                <div class="panel-body" style="background-color: white;"> 
+                {% for m in messages %} 
+                {% if m.tags == 'success' %}
+                    <div class="alert alert-success" style="color: rgb(117, 228, 53);">
+                        <strong>Success!</strong>{{m}}
+                    </div>
+                    {% endif %} {% if m.tags == 'info' %}
+                    <div class="alert alert-info" style="color: rgb(71, 194, 243);">
+                        <strong>Heads up!</strong> {{m}}
+                    </div>{% endif %} {% if m.tags == 'warning' %}
+                    <div class="alert alert-warning" style="color: rgba(231, 231, 39, 0.726);">
+                        <strong>Warning!</strong>{{m}}
+                    </div>{% endif %} {% if m.tags == 'error' %}
+                    <div class="alert alert-danger" style="color: red;">
+                        <strong>Error!</strong> {{m}}
+                    </div>{% endif %}
+                {% endfor %}</div>
+                
+                {% endif %}  -->
+
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li>
+                      {% if message.tags %} 
+                      <div class=" box" style="background-color: white;color:black;text-align: center;position: relative;width:300px;margin-left: 500px;height:80px;" "{{ message.tags }}" {% endif %}>{{ message }}
+                         
+                          
+                        
+                      </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                <div class="col-lg-10 m-auto">
+                    <div class="row">
+                        <div class="col-lg-5" >
+                            <div class="login_wrap widget-taber-content p-30 background-white border-radius-10 mb-md-5 mb-lg-0 mb-sm-5">
+                                <div class="padding_eight_all bg-white">
+                                    <div class="heading_s1">
+                                        <h3 class="mb-30">Login / <a href="{% url 'register' %}">Create User </a> </h3>
+                                    </div>
+                                    <form method="POST">
+                                        
+                                        {% csrf_token %}
+                                       
+                                        
+                                       <div class='form-group mb-3'>
+
+                                      {{form.as_p}}
+
+                                       </div>
+                                       
+                                        <div class="login_footer form-group">
+                                            <div class="chek-form">
+                                                <div class="custome-checkbox">
+                                                    <input class="form-check-input b" type="checkbox" name="checkbox" id="exampleCheckbox1" value="">
+                                                    <label class="form-check-label" for="exampleCheckbox1"><span>Remember me</span></label>
+                                                </div>
+                                            </div>
+                                            <a class="text-muted" href="">Forgot password?</a>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" name="login" class='a'>Log in</button>
+                                        </div>
+                                        
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-1"></div>
+                        {% comment %} <div class="col-lg-6">
+
+                            {% if messages %}
+	
+                                                
+                                <div class="panel-body" style="background-color: white;"> 
+                                {% for m in messages %} 
+                                {% if m.tags == 'success' %}
+                                    <div class="alert alert-success" style="color: rgb(117, 228, 53);">
+                                        <strong>Success!</strong>{{m}}
+                                    </div>
+                                    {% endif %} {% if m.tags == 'info' %}
+                                    <div class="alert alert-info" style="color: rgb(71, 194, 243);">
+                                        <strong>Heads up!</strong> {{m}}
+                                    </div>{% endif %} {% if m.tags == 'warning' %}
+                                    <div class="alert alert-warning" style="color: rgba(231, 231, 39, 0.726);">
+                                        <strong>Warning!</strong>{{m}}
+                                    </div>{% endif %} {% if m.tags == 'error' %}
+                                    <div class="alert alert-danger" style="color: red;">
+                                        <strong>Error!</strong> {{m}}
+                                    </div>{% endif %}
+                                {% endfor %}</div>
+                                
+                                {% endif %} 
+
+
+                            <div class="login_wrap widget-taber-content p-30 background-white border-radius-5">
+                                <div class="padding_eight_all bg-white">
+                                    <div class="heading_s1">
+                                        <h3 class="mb-30">Create an Account</h3>
+                                    </div>
+                                    <p class="mb-50 font-sm">
+                                        Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our privacy policy
+                                    </p>
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        {% for fm in form %}
+                                        
+                                       <div class='form-group mb-3'>
+
+                                       {{fm.label_tag}} {{fm}} <small class='text-danger'>{{fm.errors|striptags}}</small>
+
+                                       </div>
+                                       {% endfor %}
+                                        <div class="login_footer form-group">
+                                            <div class="chek-form">
+                                                <div class="custome-checkbox">
+                                                    <input style='margin-left:-80px;' class="form-check-input " type="checkbox" name="checkbox" id="exampleCheckbox12" value="">
+                                                    <label class="form-check-label" for="exampleCheckbox12"><span>I agree to terms &amp; Policy.</span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class='a' name="login">Register</button>
+                                        </div>
+                                    </form>
+                                   
+                                    <div class="text-muted text-center" class='cx'>Already have an account? <a href="#">Sign in now</a></div>
+                                </div>
+                            </div> 
+                        </div> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<main>
+    <section class="pt-md-8 pt-4">
+     <div class="container">
+      <div class="row">
+       <div class="col-lg-5 mb-5 mb-md-0">
+        <div class="border p-4 upload_prescription">
+         <form class="ng-pristine ng-valid" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+          <div class="form-group">
+           <label style="margin-left: 150px;">
+            <strong>
+             Upload Prescription
+            </strong>
+           </label>
+           <p class="mb-3" style="margin-left: 120px;">
+            <small>
+             Please attach a prescription to proceed
+            </small>
+           </p>
+           <div class="custom-file">
+            <!-- <input class="custom-file-input form-control" id="customFile" multiple="" name="files[]" type="text"/> -->
+            <!-- <input type="file"  class="uploadfile"  id="imgInp" name="prescription[]" accept="image/*" multiple="multiple" style="display: block; margin-top:5rem; margin-left: 160px;"><br> -->
+            <!-- <label class="custom-file-label" for="customFile"> -->
+                <!-- <img id="blah" src="/img/file-img.jpg" alt="" /><ul id="showFiles"></ul> -->
+                <input type="file"  class="uploadfile"  id="imgInp" name="prescription[]" accept="image/*" multiple="multiple" style="margin-top:0rem; margin-left: 150px;">
+             <!-- Choose file -->
+            <!-- </label> -->
+           
+           </div>
+          </div>
+          <div class="form-group">
+           <button class="btn btn-block btn-primary" id="uploadprescription" name="upload" type="submit" value="upload">
+           Upload
+            <i class="fa fa-fw fa-caret-right">
+            </i>
+           </button>
+           <!-- <button type="submit" id="uploadprescription">upload</button> -->
+          </div>
+          <!-- <div class="file-div show-div" >
+            <img id="blah" src="/img/file-img.jpg" alt="" /><ul id="showFiles"></ul>
+           
+            <input type="file"  class="uploadfile"  id="imgInp" name="prescription[]" accept="image/*" multiple="multiple" style="display: block; margin-top:5rem; margin-left: 160px;"><br>
+        </div> -->
+         </form>
+        </div>
+       </div>
+       <div class="col-lg-7">
+        <div class="bg-light py-4 px-md-5 px-3">
+         <h4 class="mb-3">
+          Valid Prescription Guide
+         </h4>
+         <div class="row">
+          <div class="valid-prescription-list col-lg-7">
+           <ul class="pl-4">
+            <li class="mb-2">
+             Don't crop out any part of the image.
+            </li>
+            <li class="mb-2">
+             Avoid blurred images.
+            </li>
+            <li class="mb-2">
+             Include details of doctor and patient + clinic visit date.
+            </li>
+            <li class="mb-2">
+             Medicines will be dispensed as per prescription.
+            </li>
+            <li class="mb-2">
+             Supported file types: jpeg, jpg, png.
+            </li>
+            <li class="mb-2">
+             Maximum allowed file size: 2MB
+            </li>
+           </ul>
+          </div>
+          <div class="col-lg-5">
+           <img alt="" class="img-fluid" src="{% static 'assets/img/extra/prescription.svg' %}"/>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+   </main>
+ {% endblock %}

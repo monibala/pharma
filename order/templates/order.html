@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+  {% include 'orderbase.html' %}
+
+       <div class="col-lg-8 col-md-8 col-12">
+        <div class="ml-0 ml-md-4">
+         <div class="d-none d-md-block">
+          <div class="row mb-md-5">
+           <div class="col">
+            <h5 class="mb-1 text-white">
+             Orders
+            </h5>
+            <p class="mb-0 text-white small">
+             You have full control to manage your own orders.
+            </p>
+           </div>
+           <div class="col-auto">
+            <a class="btn btn-primary btn-sm" href="{% url 'account' %}">
+             <i class="ti-angle-left">
+             </i>
+             Go Back
+            </a>
+           </div>
+          </div>
+         </div>
+         <div class="card">
+          <div class="table-responsive">
+           
+           <table class="table mb-0">
+            <thead>
+             <tr>
+              <th>
+               Order #
+              </th>
+              <th>
+               Date Purchased
+              </th>
+              <th>
+               Status
+              </th>
+              <th>
+               Total
+              </th>
+             </tr>
+            </thead>
+
+            <tbody>
+              {% for o in op %}
+             <tr>
+                            
+          
+              <td class="py-3">
+               <a class="nav-link-style fw-medium fs-sm" data-bs-toggle="modal" href="{% url 'orderdetail' o.id %}">
+                {{o.order_id}}
+               </a>
+              </td>
+              <td class="py-3">
+               {{o.order_date}}
+              </td>
+              <td class="py-3">
+               <span class="badge bg-soft-info m-0">
+                {{o.status}}
+               </span>
+              </td>
+              <td class="py-3">
+               ${{o.amount}}
+              </td>
+           
+             </tr>
+             {% endfor %}
+             </tbody>
+            
+             <!-- <tr> -->
+              <!-- <td class="py-3">
+               <a class="nav-link-style fw-medium fs-sm" data-bs-toggle="modal" href="orders-details.html">
+                78A643CD409
+               </a>
+              </td>
+              <td class="py-3">
+               December 09, 2018
+              </td>
+              <td class="py-3">
+               <span class="badge bg-soft-danger m-0">
+                Canceled
+               </span>
+              </td>
+              <td class="py-3">
+               <span>
+                $760.50
+               </span>
+              </td>
+             </tr>
+          
+             <tr>
+              <td class="py-3">
+               <a class="nav-link-style fw-medium fs-sm" data-bs-toggle="modal" href="orders-details.html">
+                112P45A90V2
+               </a>
+              </td>
+              <td class="py-3">
+               October 15, 2018
+              </td>
+              <td class="py-3">
+               <span class="badge bg-soft-warning m-0">
+                Delayed
+               </span>
+              </td>
+              <td class="py-3">
+               $1,264.00
+              </td>
+             </tr>
+             <tr>
+              <td class="py-3">
+               <a class="nav-link-style fw-medium fs-sm" data-bs-toggle="modal" href="orders-details.html">
+                28BA67U0981
+               </a>
+              </td>
+              <td class="py-3">
+               July 19, 2018
+              </td>
+              <td class="py-3">
+               <span class="badge bg-soft-success m-0">
+                Delivered
+               </span>
+              </td>
+              <td class="py-3">
+               $198.35
+              </td>
+             </tr>
+             <tr>
+              <td class="py-3">
+               <a class="nav-link-style fw-medium fs-sm" data-bs-toggle="modal" href="single_order">
+                502TR872W2
+               </a>
+              </td>
+              <td class="py-3">
+               April 04, 2018
+              </td>
+              <td class="py-3">
+               <span class="badge bg-soft-success m-0">
+                Delivered
+               </span>
+              </td>
+              <td class="py-3">
+               $2,133.90
+              </td>
+             </tr>
+             <tr>
+              <td class="py-3">
+               <a class="nav-link-style fw-medium fs-sm" data-bs-toggle="modal" href="orders-details.html">
+                47H76G09F33
+               </a>
+              </td>
+              <td class="py-3">
+               March 30, 2018
+              </td>
+              <td class="py-3">
+               <span class="badge bg-soft-success m-0">
+                Delivered
+               </span>
+              </td>
+              <td class="py-3">
+               $86.40
+              </td>
+             </tr> -->
+            </tbody>
+           </table>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </main>
+{% endblock %}

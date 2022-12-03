@@ -1,0 +1,70 @@
+{% extends 'base.html' %} 
+{% block content %} 
+{% load static %} 
+
+{% include 'orderbase.html' %}       <div class="col-lg-8 col-md-8 col-12">
+        <div class="ml-0 ml-md-4">
+         <div class="d-none d-md-block">
+          <div class="row mb-md-5">
+           <div class="col">
+            <h5 class="mb-1 text-white">
+             Account Details
+            </h5>
+            <p class="mb-0 text-white small">
+             You have full control to manage your own Account.
+            </p>
+           </div>
+           <div class="col-auto">
+            <a class="btn btn-primary btn-sm" href="{% url 'changepassword' %}">
+             Change Password
+            </a>
+           </div>
+          </div>
+         </div>
+         <div class="card">
+          <div class="card-body">
+           <div>
+            <form class="row align-items-end"  method="POST">
+                {% csrf_token %}
+             <!-- First name -->
+             <div class="mb-3 col-12 col-md-6">
+              <label class="form-label" for="name">
+               First Name
+              </label>
+              <input class="form-control" name="name" placeholder="Name" type="text"/>
+             </div>
+             <!-- Last name -->
+             <!-- <div class="mb-3 col-12 col-md-6">
+              <label class="form-label" for="lname">
+               Last Name
+              </label>
+              <input class="form-control" id="lname" placeholder="Last Name" type="text"/>
+             </div> -->
+             <div class="mb-3 col-12 col-md-6">
+              <label class="form-label" for="fname">
+               Phone
+              </label>
+              <input class="form-control" name="mobile" placeholder="Phone" type="text" value="1234567890"/>
+             </div>
+             <div class="mb-3 col-12 col-md-6">
+              <label class="form-label" for="fname">
+               Email
+              </label>
+              <input class="form-control" name="email" placeholder="Email" type="text" value="abc@abc.com"/>
+             </div>
+             <div class="col-12 mb-3 text-lg-right">
+              <button class="btn btn-primary" type="submit">
+               edit details
+              </button>
+             </div>
+            </form>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </main>
+   {% endblock %}

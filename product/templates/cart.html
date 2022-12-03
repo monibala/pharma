@@ -1,0 +1,422 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+   <div class="overlay">
+   </div>
+  </div>
+  <section class="section-padding mt-5">
+   <div class="container">
+    <div class="row justify-content-between">
+     <div class="col-md-9">
+      <div class="cart_product">
+       <div class="cart_product_heading">
+        <div class="row align-items-center">
+         <div class="col-sm-6 text-lg-left">
+          <h4>
+           Shopping Cart
+           <span>
+            {{carts.count}}
+           </span>
+          </h4>
+         </div>
+         <div class="col-sm-6 text-lg-right">
+          <a class="btn btn-light btn-medium button-sm d-none d-md-inline-block" href="#">
+           <i class="ti-trash">
+           </i>
+           Empty
+                                        Cart
+          </a>
+         </div>
+        </div>
+       </div>
+       {% for c in carts %}
+       <div class="cart_item">
+        <div class="cart_item_image">
+         <img alt="shop" src="/media/{{c.product.image}}"/>
+        </div>
+        <div class="c-item-body mt-4 mt-md-0">
+         <div class="cart_item_title mb-2">
+          <h4>
+          {{c.product.product_name}}
+          </h4>
+          <p class="small mb-0 text-muted">
+          
+          </p>
+         </div>
+         <div class="cart_item_price">
+          <div class="product-price">
+           <span>
+            <strong>
+             {{c.product.mrp}}
+            </strong>
+            <del>
+             {{c.product.offer_price}}
+            </del>
+            <small class="product-discountPercentage">
+             ({{c.product.offer_percentage}}% OFF)
+            </small>
+           </span>
+          </div>
+          <div class="cart_product_remove">
+           <a href="{% url 'delete' %}?remove={{c.product.id}}">
+            <i class="ti-trash">
+            </i>
+            Remove
+           </a>
+          </div>
+         </div>
+        </div>
+        <div class="qty-input btn mt-4 mt-md-0">
+          <a href="{% url 'update' %}?min={{c.product.id}}" style="text-decoration:none;">
+            <!-- <button onclick="$('#update').val('{{c.product.id}}');"> -->
+         <i class="less" style="color:black;font-size:20px;">
+          -
+         </i>
+        </a>
+      <!-- </button> -->
+         <input type="text" value="{{c.quantity}}">
+         <a href="{% url 'update' %}?max={{c.product.id}}" style="text-decoration:none;">
+          <!-- <button onclick="$('#update').val('{{c.product.id}}');"> -->
+          <i class="more" style="color:black;font-size:20px;">
+           +
+          </i>
+          </a>
+        <!-- </button> -->
+         </input>
+        </div>
+       </div>
+       {% endfor %}
+       <!-- <div class="cart_item">
+        <div class="cart_item_image">
+         <img alt="shop" src="assets/img/product/product-2.png"/>
+        </div>
+        <div class="c-item-body mt-4 mt-md-0">
+         <div class="cart_item_title mb-2">
+          <h4>
+           1mg Salmon Omega 3 Fish Oil Capsule
+          </h4>
+          <p class="small mb-0 text-muted">
+           bottle of 60 capsules
+          </p>
+         </div>
+         <div class="cart_item_price">
+          <div class="product-price">
+           <span>
+            <strong>
+             â¹499
+            </strong>
+            <del>
+             â¹1,000
+            </del>
+            <small class="product-discountPercentage">
+             (50% OFF)
+            </small>
+           </span>
+          </div>
+          <div class="cart_product_remove">
+           <a href="#">
+            <i class="ti-trash">
+            </i>
+            Remove
+           </a>
+          </div>
+         </div>
+        </div>
+        <div class="qty-input btn mt-4 mt-md-0">
+         <i class="less">
+          -
+         </i>
+         <input type="text" value="2"/>
+         <i class="more">
+          +
+         </i>
+        </div>
+       </div>
+       <div class="cart_item">
+        <div class="cart_item_image">
+         <img alt="shop" src="assets/img/product/product-3.png"/>
+        </div>
+        <div class="c-item-body mt-4 mt-md-0">
+         <div class="cart_item_title mb-2">
+          <h4>
+           1mg Salmon Omega 3 Fish Oil Capsule
+          </h4>
+          <p class="small mb-0 text-muted">
+           bottle of 60 capsules
+          </p>
+         </div>
+         <div class="cart_item_price">
+          <div class="product-price">
+           <span>
+            <strong>
+             â¹499
+            </strong>
+            <del>
+             â¹1,000
+            </del>
+            <small class="product-discountPercentage">
+             (50% OFF)
+            </small>
+           </span>
+          </div>
+          <div class="cart_product_remove">
+           <a href="#">
+            <i class="ti-trash">
+            </i>
+            Remove
+           </a>
+          </div>
+         </div>
+        </div>
+        <div class="qty-input btn mt-4 mt-md-0">
+         <i class="less">
+          -
+         </i>
+         <input type="text" value="2"/>
+         <i class="more">
+          +
+         </i>
+        </div>
+       </div> -->
+      </div>
+     </div>
+     <div class="col-lg-3 mt-lg-0 mt-6">
+      <h6 class="font-weight-bold">
+       Deliver to
+      </h6>
+      <div class="mb-4">
+       <select class="form-control">
+        <option value="s">
+         Siliguri - 734001
+        </option>
+        <option selected="" value="s">
+         Delhi - 110002
+        </option>
+        <option value="s">
+         Kolkata - 700027
+        </option>
+       </select>
+      </div>
+   
+      <div class="cart-summary">
+       <div class="cart-summary-wrap">
+        <h4>
+         Cart Summary
+        </h4>
+        <p>
+         Sub Total
+         <span>
+          ${{amount}}
+         </span>
+        </p>
+        <p>
+         Shipping Cost
+         <span>
+          $70.00
+         </span>
+        </p>
+        <h2>
+         Grand Total
+         <span>
+          ${{totalamount}}
+         </span>
+        </h2>
+       </div>
+       <div class="cart-summary-button">
+        <a class="btn btn-primary btn-rounded btn-full btn-large" href="{% url 'checkout' %}">
+         Proceed to Checkout
+         <i class="ti-arrow-right">
+         </i>
+        </a>
+       </div>
+       
+      </div>
+  
+     </div>
+    </div>
+   </div>
+  </section>
+{% endblock %}
+  <!-- Modal -->
+  <div aria-hidden="true" aria-labelledby="login_modal" class="modal clean_modal clean_modal-lg" id="login_modal" tabindex="-1">
+   <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+     <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+      <span aria-hidden="true">
+       ×
+      </span>
+     </button>
+     <div class="modal-body">
+      <div class="row">
+       <div class="col-12">
+        <a class="btn btn-gray-border btn-full rounded btn-large text-capitalize mb-3" href="#">
+         <img alt="" src="assets/img/facebook.png"/>
+         Login with Facebook
+        </a>
+        <a class="btn btn-gray-border btn-full rounded btn-large text-capitalize" href="#">
+         <img alt="" src="assets/img/google.png"/>
+         Login with Google
+        </a>
+       </div>
+       <div class="col-12 text-center">
+        <p class="text-muted my-4">
+         Or Login With
+        </p>
+       </div>
+      </div>
+      <div class="login_error d-none">
+       <div class="alert" role="alert">
+       </div>
+      </div>
+      <form action="" id="login_modal_form" method="POST">
+       <div class="form-group">
+        <input class="form-control input-lg rounded" name="email" placeholder="Email" required="" type="email"/>
+       </div>
+       <div class="form-group">
+        <input class="form-control input-lg rounded" name="password" placeholder="Password" required="" type="password"/>
+       </div>
+       <button class="btn btn-primary btn-full btn-medium rounded" id="login_btn" name="submit" type="submit">
+        Login
+       </button>
+       <div class="form-group text-center small font-weight-bold mt-3">
+        <a data-dismiss="modal" data-target="#forgot_modal" data-toggle="modal" href="#">
+         Forgot
+                                Password?
+        </a>
+       </div>
+       <hr class="my-4"/>
+       <div class="form-group text-center small font-weight-bold mb-0">
+        Donât have an account?
+        <a data-dismiss="modal" data-target="#register_modal" data-toggle="modal" href="#">
+         Register
+        </a>
+       </div>
+      </form>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div aria-hidden="true" aria-labelledby="forgot_modal" class="modal clean_modal" id="forgot_modal" tabindex="-1">
+   <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+     <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+      <span aria-hidden="true">
+       ×
+      </span>
+     </button>
+     <div class="modal-body">
+      <form action="#" method="POST">
+       <div class="form-group">
+        <input class="form-control input-lg rounded" name="password" placeholder="Old Password" type="password"/>
+       </div>
+       <div class="form-group">
+        <input class="form-control input-lg rounded" name="password" placeholder="New Password" type="password"/>
+       </div>
+       <div class="form-group">
+        <input class="form-control input-lg rounded" name="password" placeholder="Confirm Password" type="text"/>
+       </div>
+       <button class="btn btn-primary btn-full btn-medium rounded" name="submit" type="submit">
+        Change
+                            Password
+       </button>
+       <div class="form-group text-center small font-weight-bold mt-3">
+        Want to
+        <a data-dismiss="modal" data-target="#login_modal" data-toggle="modal" href="#">
+         Login?
+        </a>
+       </div>
+       <hr class="my-4"/>
+       <div class="form-group text-center small font-weight-bold mb-0">
+        Donât have an account?
+        <a data-dismiss="modal" data-target="#register_modal" data-toggle="modal" href="#">
+         Register
+        </a>
+       </div>
+      </form>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div aria-hidden="true" aria-labelledby="register_modal" class="modal clean_modal clean_modal-lg" id="register_modal" tabindex="-1">
+   <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+     <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+      <span aria-hidden="true">
+       ×
+      </span>
+     </button>
+     <div class="modal-body">
+      <div class="register_error d-none">
+       <div class="alert f-size-16" role="alert">
+       </div>
+      </div>
+      <form action="" id="register_form" method="POST">
+       <div class="row">
+        <div class="col-12">
+         <a class="btn btn-gray-border btn-full rounded btn-large text-capitalize mb-3" href="#">
+          <img alt="" src="assets/img/facebook.png"/>
+          Register with Facebook
+         </a>
+         <a class="btn btn-gray-border btn-full rounded btn-large text-capitalize" href="#">
+          <img alt="" src="assets/img/google.png"/>
+          Register with Google
+         </a>
+        </div>
+        <div class="col-12 text-center">
+         <p class="text-muted my-4">
+          Or Register With
+         </p>
+        </div>
+       </div>
+       <div class="row">
+        <div class="col-lg-6">
+         <div class="form-group mb-3">
+          <input class="form-control" name="fname" placeholder="First Name" required="" type="text"/>
+         </div>
+        </div>
+        <div class="col-lg-6">
+         <div class="form-group mb-3">
+          <input class="form-control" name="lname" placeholder="Last Name" required="" type="text"/>
+         </div>
+        </div>
+       </div>
+       <div class="form-group mb-3">
+        <input class="form-control rounded" name="email" placeholder="Email" required="" type="email"/>
+       </div>
+       <div class="form-group mb-3">
+        <input class="form-control rounded checkIsNumber phone-check" name="phone" placeholder="Phone" required="" type="text"/>
+       </div>
+       <div class="form-group mb-3">
+        <input class="form-control rounded" name="password" placeholder="Password" required="" type="password"/>
+       </div>
+       <button class="btn btn-primary btn-full btn-medium rounded" id="register_btn" name="submit" type="submit">
+        Register
+       </button>
+       <div class="form-group text-center small font-weight-bold mt-3">
+        By continuing you agree to our
+        <a href="#">
+         Terms and conditions.
+        </a>
+       </div>
+       <hr class="my-4"/>
+       <div class="form-group text-center small font-weight-bold mb-0">
+        Donât have an account?
+        <a data-dismiss="modal" data-target="#login_modal" data-toggle="modal" href="#">
+         Login
+        </a>
+       </div>
+      </form>
+     </div>
+    </div>
+   </div>
+  </div>
+  <!-- Required vendor scripts (Do not remove) -->
+  <script src="assets/js/jquery-2.2.4.min.js">
+  </script>
+  <script src="assets/js/plugins.bundle.js">
+  </script>
+  <!-- Modify theme scripts (Do not remove) -->
+  <script src="assets/js/theme.js">
+  </script>
+ </body>
+</html>
