@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-<section class="section-padding mt-4">
+<section class="section-padding mt-4" style="margin-left:50px;">
     <div class="container-fluid">
      <div class="row justify-content-between">
       <div class="col-lg-4">
@@ -10,42 +10,42 @@
         <div class="big-image-wrapper">
          <div class="product-details-big-image-slider-wrapper slider-for" data-autoplay="false" data-nav="false">
           <div class="single-image">
-           <img alt="slider" src="{{prod.image.url}}"/>
+           <img alt="slider" src="/media/{{prod.image}}"/>
           </div>
           <div class="single-image">
-           <img alt="slider" src="{% static 'assets/img/product/product-2.png' %}"/>
+           <img alt="slider" src="/media/{{prod.image}}"/>
           </div>
           <div class="single-image">
-           <img alt="slider" src="{% static 'assets/img/product/product-3.png' %}"/>
+           <img alt="slider" src="/media/{{prod.image}}"/>
           </div>
           <div class="single-image">
-           <img alt="slider" src="{% static 'assets/img/product/product-4.png' %}"/>
+           <img alt="slider" src="/media/{{prod.image}}"/>
           </div>
           <div class="single-image">
-           <img alt="slider" src="{% static 'assets/img/product/product-5.png' %}"/>
+           <img alt="slider" src="/media/{{prod.image}}"/>
           </div>
           <div class="single-image">
-           <img alt="slider" src="{% static 'assets/img/product/product-6.png' %}"/>
+           <img alt="slider" src="/media/{{prod.image}}"/>
           </div>
          </div>
          <div class="slider-nav product-details-small-image-slider-wrapper" data-autoplay="false" data-nav="false" data-slick-center-mode="true" data-slides-to-show="3">
           <div class="single-image">
-           <img alt="slider" src="{% static 'assets/img/product/product-1.png' %}"/>
+           <img alt="slider" src="/media/{{prod.image}}"/>
           </div>
           <div class="single-image">
-           <img alt="slider" src="{% static 'assets/img/product/product-2.png' %}"/>
+           <img alt="slider" src="/media/{{prod.image}}"/>
           </div>
           <div class="single-image">
-           <img alt="slider" src="{% static 'assets/img/product/product-3.png' %}"/>
+           <img alt="slider" src="/media/{{prod.image}}"/>
           </div>
           <div class="single-image">
-           <img alt="slider" src="{% static 'assets/img/product/product-4.png' %}"/>
+           <img alt="slider" src="/media/{{prod.image}}"/>
           </div>
           <div class="single-image">
-           <img alt="slider" src="{% static 'assets/img/product/product-5.png' %}"/>
+           <img alt="slider" src="/media/{{prod.image}}"/>
           </div>
           <div class="single-image">
-           <img alt="slider" src="{% static 'assets/img/product/product-6.png' %}"/>
+           <img alt="slider" src="/media/{{prod.image}}"/>
           </div>
          </div>
         </div>
@@ -59,14 +59,39 @@
           <p class="single-info">
            Brands
            <a href="">
-            BrandName
+            {{prod.brands}}
            </a>
           </p>
           <h4 class="product-title">
            {{prod.product_name}}
           </h4>
           <div class="rating">
+            {% for r in rev %}
+            {% if r.rating == 5 %}
+            <i class="fa fa-star">
+           </i><i class="fa fa-star">
+           </i><i class="fa fa-star">
+           </i><i class="fa fa-star">
+           </i><i class="fa fa-star">
+           </i>
+           {% elif r.rating == 4 %}
+   
            <i class="fa fa-star">
+           </i><i class="fa fa-star">
+           </i><i class="fa fa-star">
+           </i><i class="fa fa-star"></i>
+             {% elif r.rating == 3 %}
+             <i class="fa fa-star">
+             </i><i class="fa fa-star">
+             </i><i class="fa fa-star"></i>
+             {% elif r.rating == 2 %}
+             <i class="fa fa-star">
+             </i><i class="fa fa-star"></i>
+             {% else %}
+             <i class="fa fa-star"></i>
+             {% endif %}
+             
+           <!-- <i class="fa fa-star">
            </i>
            <i class="fa fa-star">
            </i>
@@ -75,26 +100,27 @@
            <i class="fa fa-star-half-o">
            </i>
            <i class="fa fa-star-o">
-           </i>
+           </i> -->
            <span class="review-count ml-3">
             4.5 (2,213)
            </span>
+           {% endfor %}
           </div>
           <p class="single-grid-product__price">
            <span class="discounted-price">
-            â¹999
+            {{prod.offer_price}}
            </span>
            <span class="main-price discounted">
-            â¹1699
+            {{prod.mrp}}
            </span>
           </p>
           <div class="single-info">
-           <span class="d-block text-muted mb-2">
+           <!-- <span class="d-block text-muted mb-2">
             <strong>
              SKU :
             </strong>
             MB5415
-           </span>
+           </span> -->
            <span class="d-block text-muted mb-2">
             <strong>
              Category :
@@ -109,7 +135,7 @@
                                          Stock
            </span>
           </div>
-          <div class="varient mt-4">
+          <!-- <div class="varient mt-4">
            <h6 class="font-weight-bold text-dark mb-3">
             Product Varient
            </h6>
@@ -149,7 +175,7 @@
              </div>
             </label>
            </div>
-          </div>
+          </div> -->
            <div class="product-actions my-4 justify-content-between">
           <!-- Quantity -->
            <!-- <div class="qty-input btn">
@@ -175,12 +201,12 @@
             </a>
            </div>
           </div>
-          <div class="mb-4">
+          <!-- <div class="mb-4">
            <a class="btn btn-block btn-primary btn-pill transition-3d-hover" href="{% url 'checkout' %}">
             Buy
                                          Now
            </a>
-          </div>
+          </div> -->
          </div>
         </div>
         <div class="col-lg-5 mt-4 mt-lg-0">
@@ -283,7 +309,7 @@
            <input class="form-control custom-location" placeholder="Delivery Pincode" type="text"/>
            <div class="input-group-prepend">
             <span class="input-group-text bg-primary text-white cursor-pointer">
-             Check
+           Check
             </span>
            </div>
           </div>
@@ -318,7 +344,7 @@
                              nisl, in accumsan elit odio quis mi. Cras neque metus, consequat et blandit et,
                              luctus a nunc. Etiam gravida vehicula tellus, in imperdiet ligula euismod eget.
         </p>
-        <h3 class="entry-product-section-heading">
+        <!-- <h3 class="entry-product-section-heading">
          Additional information
         </h3>
         <div class="product-info-sec">
@@ -358,16 +384,17 @@
            </tr>
           </tbody>
          </table>
-        </div>
+        </div> -->
         <h2 class="entry-product-section-heading">
          Reviews
         </h2>
         <div class="row justify-content-between">
+          {% for r in rev %}
          <div class="col-lg-5">
           <div class="review_content">
            <div class="mb-1">
             <div class="rating">
-             <i class="fa fa-star">
+             <!-- <i class="fa fa-star">
              </i>
              <i class="fa fa-star">
              </i>
@@ -376,26 +403,48 @@
              <i class="fa fa-star-half-o">
              </i>
              <i class="fa fa-star-o">
-             </i>
-             <span class="review-count ml-3">
+             </i> -->
+             {% if r.rating == 5 %}
+             <i class="fa fa-star">
+            </i><i class="fa fa-star">
+            </i><i class="fa fa-star">
+            </i><i class="fa fa-star">
+            </i><i class="fa fa-star">
+            </i>
+            {% elif r.rating == 4%}
+    
+            <i class="fa fa-star">
+            </i><i class="fa fa-star">
+            </i><i class="fa fa-star">
+            </i><i class="fa fa-star"></i>
+              {% elif r.rating == 3 %}
+              <i class="fa fa-star">
+              </i><i class="fa fa-star">
+              </i><i class="fa fa-star"></i>
+              {% elif r.rating == 2 %}
+              <i class="fa fa-star">
+              </i><i class="fa fa-star"></i>
+              {% else %}
+              <i class="fa fa-star"></i>
+              {% endif %}
+             <!-- <span class="review-count ml-3">
               4.5 (2,213)
-             </span>
+             </span> -->
             </div>
-            <em>
+            <!-- <em>
              Published 54 minutes ago
-            </em>
+            </em> -->
            </div>
            <h4>
-            "Commpletely satisfied"
+            {{r.comment}}
            </h4>
            <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus
-                                         autem, distinctio hic omnis molestiae, perspiciatis deserunt labore nisi
-                                         exercitationem non laudantium
+            {{r.description}}
            </p>
           </div>
          </div>
-         <div class="col-lg-5">
+         {% endfor %}
+         <!-- <div class="col-lg-5">
           <div class="review_content">
            <div class="mb-1">
             <div class="rating">
@@ -555,7 +604,7 @@
                                          labore laboriosam perferendis in inventore magnam excepturi.
            </p>
           </div>
-         </div>
+         </div> -->
         </div>
         <p class="text-right">
          <a class="btn btn-primary" href="{% url 'review' %}">
@@ -589,9 +638,9 @@
           <a class="product-img" href="#">
            <img alt="" class="" src="/media/{{p.image}}"/>
           </a>
-          <div class="product-info">
+          <div class="product-info" style="text-align: center;">
            <div class="product-rating">
-            <i class="fa fa-star">
+            <!-- <i class="fa fa-star">
             </i>
             <i class="fa fa-star">
             </i>
@@ -603,15 +652,40 @@
             </i>
             <div class="review-count">
              4.5 (2,213)
-            </div>
+            </div> -->
+            <!-- {% for r in rev %}
+            {% if r.rating == 5 %}
+            <i class="fa fa-star">
+           </i><i class="fa fa-star">
+           </i><i class="fa fa-star">
+           </i><i class="fa fa-star">
+           </i><i class="fa fa-star">
+           </i>
+           {% elif r.rating == 4%}
+   
+           <i class="fa fa-star">
+           </i><i class="fa fa-star">
+           </i><i class="fa fa-star">
+           </i><i class="fa fa-star"></i>
+             {% elif r.rating == 3 %}
+             <i class="fa fa-star">
+             </i><i class="fa fa-star">
+             </i><i class="fa fa-star"></i>
+             {% elif r.rating == 2 %}
+             <i class="fa fa-star">
+             </i><i class="fa fa-star"></i>
+             {% else %}
+             <i class="fa fa-star"></i>
+             {% endif %}
+             {% endfor %} -->
            </div>
            <h3>
-            <a href="#">
+            <a href="{% url 'productsingle' p.slug %}">
             {{p.product_name}}
             </a>
            </h3>
            <div class="product-value">
-            <div class="d-flex">
+            <div class="d-flex" style="margin-left:40px;">
              <small class="regular-price">
               MRP
               <del>
@@ -619,16 +693,17 @@
               </del>
              </small>
              <div class="off-price">
-             {{p.discounted_price}}% off
+             {{p.offer_percentage}}% off
              </div>
             </div>
-            <div class="current-price">
-            {{p.price}}
+            <div class="current-price" style="margin-right:20px;">
+            {{p.offer_price}}
             </div>
            </div>
           </div>
-          {% endfor %}
+         
          </div>
+         {% endfor %}
          <!-- <div class="product">
           <a class="product-img" href="#">
            <img alt="" class="" src="{% static 'assets/img/product/product-2.png' %}"/>

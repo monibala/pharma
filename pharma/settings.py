@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'superuser',
     'blog',
     'about',
-    'paypalpayapp'
+    'paypalpayapp',
+    'paypal.standard.ipn'
 ]
 
 MIDDLEWARE = [

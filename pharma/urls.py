@@ -26,6 +26,8 @@ urlpatterns = [
     path('', include('product.urls')),
     path('', include('category.urls')),
     path('', include('order.urls')),
-    path('', include('paypalpayapp.urls')),
+    # path('', include('paypalpayapp.urls')),
     path('dashboard/', include('superuser.urls')),
+    path('paypalpayapp/',include('paypalpayapp.urls')),
+    path('paypal/', include('paypal.standard.ipn.urls')),
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

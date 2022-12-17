@@ -3,12 +3,12 @@
 <nav>
     <ul class="metismenu" id="menu">
     {% url "dashboardindex" as dashboardurl %}
-        <!-- <li class="{% if request.path == dashboardurl %}active{% endif %}">
+        <li class="{% if request.path == dashboardurl %}active{% endif %}">
             <a href="" aria-expanded="true">
                 <i class="ti-dashboard"></i>
                 <span>dashboard</span>
             </a>
-        </li> -->
+        </li>
         {% with ''|sidebardata as modelslist %}
         {% for key,val in modelslist.items %}
         {% url "showapp" key as showappurl %}

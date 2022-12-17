@@ -1,6 +1,7 @@
 from django import template
 from category.models import Category, SubCategory, SubSubCategory
 from product.models import Cart
+from about.models import AboutUS
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 import requests
@@ -52,3 +53,6 @@ def getCart(request):
 # @register.filter(name='getuser')
 # def getuser(user):
 #     return User.objects.get(id=user)
+@register.filter(name='getaboutdata')
+def getaboutdata(value):
+    return AboutUS.objects.all()

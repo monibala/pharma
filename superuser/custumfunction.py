@@ -1,4 +1,5 @@
 from django.urls import reverse
+
 def getobjecturl(value):
     modelclass = type(value)
     modelname = modelclass._meta.model_name

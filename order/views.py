@@ -19,11 +19,15 @@ def orderdetail(request,id):
     data = OrderItem.objects.get(id=id)
     addr = Customer_info.objects.get(user=request.user)
     res = {'data':data,'addr':addr}
-    print(res)
+   
     return render(request, 'orderdetail.html',res)
+
+@login_required
 def show_wishlist(request):
     wish = wishitems.objects.all()
     return render(request,'wishlist.html',{'wish':wish})
+
+@login_required
 def wishlist(request):
     if request.user.is_authenticated:
         
@@ -49,5 +53,9 @@ def paymentdone(request):
 def thankyou(request):
     return render(request, 'thankyou.html')
 
-
+@login_required
+def removewishitems(request,id):
+    rem = wishitems.objects.filter(id=id)
+    rem.delete()
+    return redirect('show_wishlist')
    

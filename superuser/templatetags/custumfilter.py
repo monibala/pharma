@@ -1,4 +1,5 @@
 from django import template
+from about.models import AboutUS
 from superuser.dashboardsettings import appslist,appmodels
 register = template.Library()
 @register.filter(name='sidebardata')
@@ -36,3 +37,6 @@ def getpercent(value,arg):
 @register.filter(name="showrelated")
 def showrelated(value,args):
     return "showing related"
+@register.filter(name='getaboutdata')
+def getaboutdata(value):
+    return AboutUS.objects.all()

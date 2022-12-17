@@ -1,0 +1,417 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <section class="section-padding mt-5">
+   <div class="container">
+    <div class="row justify-content-between">
+     <div class="col-md-9">
+      <div class="card">
+       <div class="card-body">
+        <form method="POST" action="{% url 'checkout' %}">
+          {% csrf_token %}
+        
+        <div class="row pb-4">
+         <div class="col-sm-6">
+          <div class="form-group mb-4">
+           <label class="form-label">
+          name
+            <span class="text-danger">
+             *
+            </span>
+           </label>
+           <input class="form-control" type="text" value="Jhon" name="name" id="name"/>
+          </div>
+         </div>
+         <!-- <div class="col-sm-6">
+          <div class="form-group mb-4">
+           <label class="form-label">
+            Last name
+            <span class="text-danger">
+             *
+            </span>
+           </label>
+           <input class="form-control" type="text" value="Doe"/>
+          </div>
+         </div> -->
+         <div class="col-12">
+          <div class="form-group mb-4">
+           <label class="form-label">
+            Email address
+            <span class="text-danger">
+             *
+            </span>
+           </label>
+           <input class="form-control" type="email" value="jhon@doe.com" name="email" id="email"/>
+          </div>
+         </div>
+         <div class="col-12">
+          <div class="form-group mb-4">
+           <label class="form-label">
+            Phone
+            <span class="text-danger">
+             
+            </span>
+           </label>
+           <input class="form-control" type="text" value="" name="mobile" id="mobile"/>
+          </div>
+         </div>
+         <!-- <div class="col-12">
+          <div class="form-group mb-4">
+           <label class="form-label">
+           city
+            <span class="text-danger">
+             *
+            </span>
+           </label>
+           <input class="form-control" type="email" value="j" name="city" id="city"/>
+          </div>
+         </div> -->
+         <div class="col-sm-6">
+          <div class="form-group mb-4">
+           <label class="form-label">
+           Address
+           </label>
+           <input class="form-control" type="text" value="" name="address" id="address"/>
+          </div>
+         </div>
+         <div class="col-sm-6">
+          <div class="form-group mb-4">
+           <label class="form-label">
+          City
+           </label>
+           <input class="form-control" type="text" value="" name="city" id= "city"/>
+          </div>
+         </div>
+         <div class="col-sm-6">
+          <div class="form-group mb-4">
+           <label class="form-label">
+         State
+           </label>
+           <input class="form-control" type="text" value="" name="state" id="state"/>
+          </div>
+         </div>
+         <!-- <div class="col-sm-6">
+          <div class="form-group mb-4">
+           <label class="form-label">
+            Country
+            <span class="text-danger">
+             *
+            </span>
+           </label>
+           <select class="form-control">
+            <option value="">
+             Select country
+            </option>
+            <option value="Argentina">
+             Argentina
+            </option>
+            <option value="Belgium">
+             Belgium
+            </option>
+            <option value="France">
+             France
+            </option>
+            <option selected="" value="India">
+             India
+            </option>
+            <option value="Germany">
+             Germany
+            </option>
+            <option value="Spain">
+             Spain
+            </option>
+            <option value="UK">
+             United Kingdom
+            </option>
+            <option value="USA">
+             USA
+            </option>
+           </select>
+          </div>
+         </div> -->
+        </div>
+        <!-- <button class="primary" type="submit" name="submit">Submit</button> -->
+       
+        <div id="accordion">
+         <div class="accordion-item">
+          <!-- <div class="accordion-title">
+           <h5 aria-expanded="true" class="mb-0" data-target="#collapseOne" data-toggle="collapse">
+            Pay with Credit Card
+           </h5>
+          </div> -->
+          <div class="accordion-content collapse show" data-parent="#accordion" id="collapseOne">
+           <div class="accordion-content-inner">
+            <!-- <p class="py-4">
+             We accept following credit cards:
+             <img alt="Cerdit Cards" class="d-inline-block align-middle" src="{% static 'assets/img/payment-methods.png' %}" style="width: 187px;"/>
+            </p> -->
+            <!-- <form class="credit-card-form row g-3">
+             <div class="col-sm-6 mb-4">
+              <input class="form-control" name="number" placeholder="Card Number" required="" type="text"/>
+             </div>
+             <div class="col-sm-6 mb-4">
+              <input class="form-control" name="name" placeholder="Full Name" required="" type="text"/>
+             </div>
+             <div class="col-sm-3 mb-4">
+              <input class="form-control" name="expiry" placeholder="MM/YY" required="" type="text"/>
+             </div>
+             <div class="col-sm-3 mb-4">
+              <input class="form-control" name="cvc" placeholder="CVC" required="" type="text"/>
+             </div>
+             <div class="col-sm-6 mb-4">
+              <a class="btn btn-primary d-block w-100" href="thak-you.html">
+               Place
+                                                        order
+              </a>
+             </div>
+            </form> -->
+           </div>
+          </div>
+         </div>
+         
+         <!-- <div id="paypal-button-container"></div> -->
+       
+         <!-- <div class="accordion-item"> 
+          accordion Title
+          <div class="accordion-title">
+           <h5 class="mb-0" data-target="#collapseTwo" data-toggle="collapse">
+            Pay with
+                                            PayPal
+           </h5>
+          </div> -->
+          <!-- accordion Content -->
+         
+          <!-- <div class="collapse accordion-content" data-parent="#accordion" id="collapseTwo">
+           <div class="accordion-content-inner"> -->
+            <!-- <p class="pt-4 mb-0 pb-2">
+             <span class="font-weight-bold">
+              PayPal
+             </span>
+             - the safer, easier way to pay
+            </p> -->
+            <!-- <input type="checkbox" id="paypal-button-container" value="paypal-button-container">
+            <a class="btn btn-primary" href="{% url 'paypal' %}">
+             Checkout with PayPal
+            </a> -->
+          <!-- Render the radio buttons and marks -->
+          
+<label>
+  <input type="radio" name="payment-option" value="paypal" disabled>
+  <!-- <img src="{% static 'assets/img/paypal.jpg' %}" alt="Pay with PayPal"> -->
+  
+  <button type="submit" class="alt btn btn-primary order-btn">Paypal</button>
+</label>
+<br>
+<label>
+  <input type="radio" name="payment-option" value="alternate" >
+  <!-- <div id="paypal-marks-container"></div> -->
+  <button type="submit" class="alt btn btn-primary order-btn">Cash on Delivery</button>
+</label>
+
+<div id="paypal-buttons-container">
+ 
+</div>
+<div id="alternate-button-container">
+  <!-- <button>Pay with a different method</button> -->
+  <!-- <button type="submit" class="alt btn btn-primary order-btn"
+																name="woocommerce_checkout_place_order" id="place_order"
+																value="Place order" data-value="Place order">Pay
+																on delivery</button> -->
+
+                                <!-- <input type="" value="payment-option"> -->
+</div>
+
+          <!-- <div id="paypal-button-container">
+            <button type="submit" value="paypal-button-container" id="paypal.Buttons"></button>
+          </div> -->
+          
+          <!-- </button>  -->
+           <!-- </div>
+          </div>
+         </div> -->
+         <!-- <div class="accordion-item"> -->
+          <!-- accordion Title -->
+          <!-- <div class="accordion-title">
+           <h5 class="mb-0" data-target="#collapseThree" data-toggle="collapse">
+            Pay later
+           </h5>
+          </div> -->
+          <!-- accordion Content -->
+          <!-- <div class="collapse accordion-content" data-parent="#accordion" id="collapseThree">
+           <div class="accordion-content-inner">
+            <p class="pt-4 mb-0 pb-3">
+             <span class="font-weight-bold">
+              Cash On Delevary -->
+              <!-- <input  value="COD" name="payment"> -->
+             <!-- </span>
+             -Buy Now Pay Later for all your shopping
+            </p> -->
+            <!-- <a class="btn btn-success" href="{% url 'thankyou' %}" type="submit">
+             Place order
+            </a> -->
+            <!-- <button type="submit" class="alt btn btn-primary order-btn"
+																name="woocommerce_checkout_place_order" id="place_order"
+																value="Place order" data-value="Place order">Place
+																order</button>
+           </div>
+           
+          </div> -->
+         <!-- </div> 
+        </div>
+       </div> -->
+      <!-- </div>
+     </div> -->
+    </form>
+    </div>
+    </div>
+    </div>
+    </div>
+     <div class="col-lg-3 mt-lg-0 mt-6">
+      <h6 class="font-weight-bold">
+       Deliver to
+      </h6>
+      <!-- <div class="mb-4">
+       <select class="form-control">
+        <option value="s">
+         Siliguri - 734001
+        </option>
+        <option selected="" value="s">
+         Delhi - 110002
+        </option>
+        <option value="s">
+         Kolkata - 700027
+        </option>
+       </select>
+      </div> -->
+      <div class="payment_item">
+        <form action="/paymentdone">
+        {% for add in customer %}
+      
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="custid" id="custadd{{forloop.counter}}"  value="{{add.id}}" />
+          <label for="f-option5">  {{add.name}} ,{{add.locality}} </label> <br>
+         
+          <label for="f-option5">   {{add.city}},{{add.state}}</label> <br>
+          <label for="f-option5">  {{add.zipcode}}</label>
+          <div class="check"></div>
+        </div>
+        
+<hr>
+   
+        {% endfor %}
+      
+      </div>
+      <div class="cart-summary">
+       <div class="cart-summary-wrap">
+        <h4>
+         Cart Summary
+        </h4>
+        <p>
+         Sub Total
+         <span>
+          ${{amount}}
+         </span>
+        </p>
+        <p>
+         Shipping Cost
+         <span>
+          $100.00
+         </span>
+        </p>
+        <h2>
+         Grand Total
+         <span>
+          ${{totalamount}}
+         </span>
+        </h2>
+        
+       </div>
+      </div>
+   
+     </div>
+    </div>
+   </div>
+  </section>
+  {% block payment-gateway %} 
+
+<!-- Replace "test" with your own sandbox Business account app client ID -->
+<script src="https://www.paypal.com/sdk/js?client-id=AafKeAGTEqrMF4S2Tjxl5iV5KDeJCB_0Gpdi0uhCK5bd4dtibld84YIXna8ueCtV_u7vzXp9EVYdJIJD
+&currency=USD"></script>
+<!-- Set up a container element for the button -->
+<div id="paypal-button-container"></div>
+
+
+<!-- Replace "test" with your own sandbox Business account app client ID -->
+<script src="https://www.paypal.com/sdk/js?client-id=Ad0KMXw-MdCn3L37yDa4Esc0PnlsDH3t2NYuzDL9EmL0LmV5cn4wYNoQ0Kd79JeymRClWAnxUiXTqia4&currency=USD"></script>
+<!-- Set up a container element for the button -->
+
+<script>
+  paypal.Buttons({
+    // Sets up the transaction when a payment button is clicked
+    createOrder: (data, actions) => {
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            value: '{{totalamount}}' // Can also reference a variable or function
+          }
+        }]
+      });
+    },
+    // Finalize the transaction after payer approval
+    onApprove: (data, actions) => {
+      return actions.order.capture().then(function(orderData) {
+        // Successful capture! For dev/demo purposes:
+        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+        const transaction = orderData.purchase_units[0].payments.captures[0];
+        alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+        // When ready to go live, remove the alert and show a success message within this page. For example:
+        // const element = document.getElementById('paypal-button-container');
+        // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+        // Or go to another URL:  actions.redirect('thank_you.html');
+      });
+    }
+  }).render('#paypal-button-container');
+</script>
+
+
+{% endblock payment-gateway %}
+
+<!-- Add the PayPal JavaScript SDK with both buttons and marks components -->
+<script src="https://www.paypal.com/sdk/js?client-id=test&components=buttons,marks"></script>
+<script>
+  // Render the PayPal marks
+  paypal.Marks().render('#paypal-marks-container');
+
+  // Render the PayPal buttons
+  paypal.Buttons().render('#paypal-buttons-container');
+
+  // Listen for changes to the radio buttons
+  document.querySelectorAll('input[name=payment-option]')
+    .forEach(function (el) {
+      el.addEventListener('change', function (event) {
+
+        // If PayPal is selected, show the PayPal button
+        if (event.target.value === 'paypal') {
+          document.body.querySelector('#alternate-button-container')
+            .style.display = 'none';
+          document.body.querySelector('#paypal-buttons-container')
+            .style.display = 'block';
+        }
+
+        // If alternate funding is selected, show a different button
+        if (event.target.value === 'alternate') {
+          document.body.querySelector('#alternate-button-container')
+            .style.display = 'block';
+          document.body.querySelector('#paypal-buttons-container')
+            .style.display = 'none';
+        }
+      });
+    });
+
+  // Hide non-PayPal button by default
+  document.body.querySelector('#alternate-button-container')
+    .style.display = 'none';
+</script>
+
+{% endblock %}
+  

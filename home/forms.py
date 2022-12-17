@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+
+from product.models import Customer_info
 class loginform(forms.Form):
     username = forms.CharField(max_length=63)
     password = forms.CharField(label=('Password'),strip=False, widget=forms.PasswordInput(attrs={'autocomplete':'current-password','class':'form-control'}))
@@ -14,3 +16,4 @@ class CustomerRegistrationForm(UserCreationForm):
         fields = ['username','email','password1','password2']
         labels = {'email':'Email'}
         widgets = {'username':forms.TextInput(attrs={'class':'form-control'})}
+    

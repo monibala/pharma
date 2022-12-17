@@ -1,9 +1,6 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.shortcuts import render
-
-# Create your views here.
 
 from django.utils.encoding import force_bytes
 from django.utils.http  import urlsafe_base64_decode, urlsafe_base64_encode

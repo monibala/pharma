@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 {% load loadheader %}
-
+{% with ''|getaboutdata as aboutdata %}
 
 <html lang="zxx">
  <head>
@@ -55,15 +55,18 @@
      <div class="row align-items-center">
       <div class="col-auto">
        <a href="{% url 'index' %}">
-        <img alt="logo" class="header-logo" src="{%  static 'assets/img/logo.png' %}"/>
+        <!-- <img alt="logo" class="header-logo" src="{%  static 'assets/img/logo.png' %}"/> -->
+        <img alt="logo" class="header-logo" src="/media/{{aboutdata.0.logo}}"/>
        </a>
       </div>
       <div class="col">
-       <div class="header-search">
-        <form action="">
-         <input class="form-control custom-search" placeholder="Search for Medicines and Health Products" type="text"/>
+       <div class="header-se-arch">
+        
+        <form action="{% url 'search' %}" method="GET" >
+       
+         <input class="form-control custom-search" placeholder="Search for Medicines and Health Products" type="search" value="{{request.GET.search}}" name="search"/>
         </form>
-        <div class="search-content">
+        <!-- <div class="search-content">
          <div class="search-product d-none">
           <div class="product list-view">
            <a class="product-img" href="product-single.html">
@@ -268,9 +271,9 @@
              Add to cart
             </a>
            </div>
-          </div>
-         </div>
-        </div>
+          </div> -->
+         <!-- </div>
+        </div> -->
        </div>
       </div>
      
@@ -333,6 +336,10 @@
    
          </div>
         </li>
+        {% else %}
+        <ul class="shopping-cart-items">
+          No items in cart
+          </ul>
      {% endif %}
     {% endwith %}
         <li class="dropdown">
@@ -402,11 +409,11 @@
               <!-- <a href="{% url 'login' %}">Login </a> -->
              </li>
              <li class="link-item">
-              <!-- <a data-dismiss="modal" data-target="#register_modal" data-toggle="modal" href="#" onclick="register">
+              <a data-dismiss="modal" data-target="#register_modal" data-toggle="modal" href="{% url 'login' %}" onclick="register">
                Register
-              </a> -->
+              </a>
              
-              <a href="{% url 'register' %}">Register</a>
+              <!-- <a href="{% url 'register' %}">Register</a> -->
              </li>
              </ul>
              </div>
@@ -446,8 +453,9 @@
         
           <li   style="line-height: 12px;">
            
-           <a class="childItem-level-2" href="#">
+           <a class="childItem-level-2" href="{% url 'subcategory' mdata.slug %}">
             <span class="header-childrenItem-link-text" style="font-size:13px;">
+             
              {{mdata.subcategory_name | capfirst}} </span>
              </a>
        
@@ -457,7 +465,7 @@
               {% for data in mdata.subcategory.all %}
             
               <li>
-             <a class="childItem-level-2" href="{% url 'subsubcategory' data.name %}">
+             <a class="childItem-level-2" href="{% url 'subsubcategory' data.slug %}">
               <span class="header-childrenItem-link-text">
              {{data.name}} </span>
              </a>
@@ -1826,89 +1834,138 @@
    </div>
   </div>
   <div class="mobile-header">
-   <div class="container-fluid theme-container">
-    <div class="row align-items-center">
-     <div class="col-auto">
-      <ul class="header-left-options">
-       <li class="link-item open-sidebar">
-        <i class="ti-menu">
-        </i>
-       </li>
-      </ul>
+    <div class="container-fluid theme-container">
+     <div class="row align-items-center">
+      <div class="col-auto">
+       <ul class="header-left-options">
+        <li class="link-item open-sidebar">
+         <i class="ti-menu">
+         </i>
+        </li>
+       </ul>
+      </div>
+      <div class="col text-center">
+       <img alt="logo" class="header-logo" src="assets/img/logo.png"/>
+      </div>
+      <div class="col-auto">
+       <ul class="header-right-options">
+        <li class="link-item">
+         <span class="badge badge-secondary">
+          0
+         </span>
+         <i class="ti-bag">
+         </i>
+        </li>
+       </ul>
+      </div>
      </div>
-     <div class="col text-center">
-      <img alt="logo" class="header-logo" src="assets/img/logo.png"/>
-     </div>
-     <div class="col-auto">
-      <ul class="header-right-options">
-       <li class="link-item">
-        <span class="badge badge-secondary">
-         0
-        </span>
-        <i class="ti-bag">
-        </i>
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="menu-sidebar">
-     <div class="close">
-      <i class="ti-close">
-      </i>
-     </div>
+     <div class="menu-sidebar">
+      <div class="close">
+       <i class="ti-close">
+       </i>
+      </div>
+      
+      <div class="welcome d-flex align-items-center">
+       <a class="btn btn-soft-primary btn-md" data-dismiss="modal" data-target="{% url 'login' %}" data-toggle="modal" href="#">
+        Login
+       </a>
+       <a class="btn btn-primary btn-md" data-dismiss="modal" data-target="{% url 'register' %}" data-toggle="modal" href="#">
+        Register
+       </a>
+       <!-- <div class="avater btn-soft-primary">H</div>
+                     <span>Hi, Deep saha</span> -->
+      </div>
      
-     <div class="welcome d-flex align-items-center">
-      <a class="btn btn-soft-primary btn-md" data-dismiss="modal" data-target="{% url 'login' %}" data-toggle="modal" href="#">
-       Login
-      </a>
-      <a class="btn btn-primary btn-md" data-dismiss="modal" data-target="{% url 'register' %}" data-toggle="modal" href="#">
-       Register
-      </a>
-      <!-- <div class="avater btn-soft-primary">H</div>
-                    <span>Hi, Deep saha</span> -->
-     </div>
     
+      <div class="mobileMenuLinks mb-4 mt-2">
+       <h6>
+        Account Info
+       </h6>
+       <ul>
+        <li>
+         <a href="account.html">
+          Account
+         </a>
+        </li>
+        <li>
+         <a href="{% url 'order' %}">
+          My Orders
+         </a>
+        </li>
+        <li>
+         <a href="{% url 'wishlist' %}">
+          Wish List
+         </a>
+        </li>
+        <li>
+         <a href="index.html">
+          Logout
+         </a>
+        </li>
+       </ul>
+      </div>
+     
+      <div class="welcome d-flex align-items-center">
+       <a class="btn btn-soft-primary btn-md" data-dismiss="modal" data-target="{% url 'login' %}" data-toggle="modal" href="#">
+        Login
+       </a>
+       <a class="btn btn-primary btn-md" data-dismiss="modal" data-target="{% url 'register' %}" data-toggle="modal" href="#">
+        Register
+       </a>
+      
+       <!-- <div class="avater btn-soft-primary">H</div>
+                     <span>Hi, Deep saha</span> -->
+      </div>
    
-     <div class="mobileMenuLinks mb-4 mt-2">
-      <h6>
-       Account Info
-      </h6>
-      <ul>
-       <li>
-        <a href="account.html">
-         Account
-        </a>
-       </li>
-       <li>
-        <a href="{% url 'order' %}">
-         My Orders
-        </a>
-       </li>
-       <li>
-        <a href="{% url 'show_wishlist' %}">
-         Wish List
-        </a>
-       </li>
-       <li>
-        <a href="index.html">
-         Logout
-        </a>
-       </li>
-      </ul>
-     </div>
-    
-     <div class="welcome d-flex align-items-center">
-      <a class="btn btn-soft-primary btn-md" data-dismiss="modal" data-target="{% url 'login' %}" data-toggle="modal" href="#">
-       Login
-      </a>
-      <a class="btn btn-primary btn-md" data-dismiss="modal" data-target="{% url 'register' %}" data-toggle="modal" href="#">
-       Register
-      </a>
+      <div class="mobileMenuLinks">
+       <h6>
+        Category
+       </h6>
+       <ul class="header-links-container"  style="line-height: 7.5px;">
      
-      <!-- <div class="avater btn-soft-primary">H</div>
-                    <span>Hi, Deep saha</span> -->
+         {% for data in ""|getcategory %}
+        <li>
+         <a href="#">
+          {{data.category_name}}
+         </a>
+    
+        <!-- <i class="fa fa-angle-down drop-icon"> -->
+       <!-- </i> -->
+   
+       <div class="header-childrenItem-child-category-links">
+        <ul class="header-childrenItem-child-list">
+         {% for range in data.subcategory.all|getrange %}
+         {% for  mdata in data.subcategory.all|slice:range %}
+         <li>
+          <a class="childItem-level-2" href="">
+           <span class="header-childrenItem-link-text">
+            {{mdata.subcategory_name}}
+           </span>
+          </a>
+          </li>
+          <!-- <i class="fa fa-angle-right"></i> -->
+          <ul>
+          {% for data in mdata.subcategory.all %}
+         <li>
+           <a class="childItem-level-2" href="">
+            <span class="header-childrenItem-link-text">
+             {{data.name}}
+            </span>
+           </a>
+         </li>
+         {% endfor %}
+         </ul>
+     
+         {% endfor %}
+         {% endfor %}
+       </ul>
+     </li>
+       {% endfor %}
+   
+       <!-- </ul>
+      </div>
      </div>
-  
+     </div>   -->
      
       
      </div>
@@ -1918,4 +1975,4 @@
    </div>
   </div>
 
- 
+ {% endwith %}

@@ -1,7 +1,8 @@
 from django.urls import path
 from product import views
 urlpatterns = [
-    path('productsingle/<str:name>', views.productsingle, name='productsingle'),
+    path('products/', views.products, name='products'),
+    path('productsingle/<slug:slug>', views.productsingle, name='productsingle'),
     path('review/', views.review, name='review'),
     path('checkout/', views.checkout, name='checkout'),
     path('cart/', views.cart, name='cart'),
@@ -11,4 +12,7 @@ urlpatterns = [
     path('account/' , views.account,name='account'),
     path('address/' , views.address,name='address'),
     path('changepassword/', views.changepassword, name='changepassword'),
+    path('empty/', views.empty, name='empty'),
+    path('checkpincode/', views.checkpincode, name='checkpincode'),
+    path('pay/', views.pay, name='pay'),
 ]

@@ -11,15 +11,17 @@
     </div>
 {% endfor %}  
   <div class="slider" data-autoplay="true" data-autoplay-speed="4000">
+    {% for s in slider %}
    <a href="#">
-    <img alt="" src="{% static 'assets/img/slider/slider-1.svg' %}"/>
+    <img alt="" src="/media/{{s.image}}"/>
    </a>
-   <a href="#">
+   {% endfor %}
+   <!-- <a href="#">
     <img alt="" src="{% static 'assets/img/slider/slider-2.jpg' %}"/>
    </a>
    <a href="#">
     <img alt="" src="{% static 'assets/img/slider/slider-3.jpg' %}"/>
-   </a>
+   </a> -->
   </div>
   <!-- //category -->
   <div class="pt-5">
@@ -166,7 +168,7 @@
       </h5>
      </div>
      <div class="col-auto text-md-right">
-      <a class="btn btn-primary btn-sm product-heading-btn" href="#">
+      <a class="btn btn-primary btn-sm product-heading-btn" href="{% url 'products' %}">
        See All
       </a>
      </div>
@@ -174,12 +176,12 @@
     <div class="slider arrow-light slider-gap" data-autoplay="true" data-dots="false" data-nav="true" data-slides-to-show="6">
      {% for d in deals %}
       <div class="product">
-      <a class="product-img" href="#">
+      <a class="product-img" href="{% url 'productsingle' d.slug %}">
        <img alt="" class="" src="/media/{{d.image}}"/>
       </a>
-      <div class="product-info">
+      <div class="product-info" style="text-align: center;">
        <div class="product-rating">
-        <i class="fa fa-star">
+        <!-- <i class="fa fa-star">
         </i>
         <i class="fa fa-star">
         </i>
@@ -191,14 +193,14 @@
         </i>
         <div class="review-count">
          4.5 (2,213)
-        </div>
+        </div> -->
        </div>
        <h3>
-        <a href="#">
+        <a href="{% url 'productsingle' d.slug %}">
        {{d.product_name}}
         </a>
        </h3>
-       <div class="product-value">
+       <div class="product-value" style="margin-left:40px;">
         <div class="d-flex">
          <small class="regular-price">
           MRP
@@ -207,11 +209,11 @@
           </del>
          </small>
          <div class="off-price">
-          {{d.offerpercentage}}% off
+          {{d.offer_percentage}}% off
          </div>
         </div>
-        <div class="current-price">
-         {{d.offerprice}}
+        <div class="current-price" style="margin-right:50px;">
+         {{d.offer_price}}
         </div>
        </div>
       </div>
@@ -495,7 +497,7 @@
          Clinically Researched Essentials
         </p>
         
-        <a class="btn btn-primary btn-sm" href="#">
+        <a class="btn btn-primary btn-sm" href="{% url 'products' %}">
          Shop now
         </a>
        </div>
@@ -511,7 +513,7 @@
         <p class="offer-subtitle">
          Clinically Researched Essentials
         </p>
-        <a class="btn btn-primary btn-sm" href="#">
+        <a class="btn btn-primary btn-sm" href="{% url 'products' %}">
          Shop now
         </a>
        </div>
@@ -530,21 +532,47 @@
       </h5>
      </div>
      <div class="col-auto text-md-right">
-      <a class="btn btn-primary btn-sm product-heading-btn" href="#">
+      <a class="btn btn-primary btn-sm product-heading-btn" href="{% url 'products' %}">
        See All
       </a>
      </div>
     </div>
     <div class="row">
       {% for p in prod %}
+      {% if forloop.counter < 13 %}
      <div class="col-md-2 col-sm-4 col-6">
       <div class="product">
-       <a class="product-img" href="#">
+       <a class="product-img" href="{% url 'productsingle' p.slug %}">
         <img alt="" class="" src="/media/{{p.image}}"/>
        </a>
-       <div class="product-info">
+       <div class="product-info" style="text-align: center;">
         <div class="product-rating">
+          <!-- {% for r in rev %}
+          {% if r.rating == 5 %}
+          <i class="fa fa-star">
+         </i><i class="fa fa-star">
+         </i><i class="fa fa-star">
+         </i><i class="fa fa-star">
+         </i><i class="fa fa-star">
+         </i>
+         {% elif r.rating == 4 %}
+ 
          <i class="fa fa-star">
+         </i><i class="fa fa-star">
+         </i><i class="fa fa-star">
+         </i><i class="fa fa-star"></i>
+           {% elif r.rating == 3 %}
+           <i class="fa fa-star">
+           </i><i class="fa fa-star">
+           </i><i class="fa fa-star"></i>
+           {% elif r.rating == 2 %}
+           <i class="fa fa-star">
+           </i><i class="fa fa-star"></i>
+           {% else %}
+           <i class="fa fa-star"></i>
+           {% endif %}
+            {% endfor %} -->
+         <!-- <i class="fa fa-star">
          </i>
          <i class="fa fa-star">
          </i>
@@ -553,29 +581,29 @@
          <i class="fa fa-star-half-o">
          </i>
          <i class="fa fa-star-o">
-         </i>
-         <div class="review-count">
+         </i> -->
+         <!-- <div class="review-count">
           4.5 (2,213)
-         </div>
+         </div> -->
         </div>
         <h3>
-         <a href="#">
+         <a href="{% url 'productsingle' p.slug %}">
          {{p.product_name}}
          </a>
         </h3>
-        <div class="product-value">
+        <div class="product-value" style="margin-left:40px;">
          <div class="d-flex">
           <small class="regular-price">
            MRP
            <del>
            {{p.mrp}}
            </del>
-          </small>
+          </small><br>
           <div class="off-price">
             {{p.offer_percentage}}% off
           </div>
          </div>
-         <div class="current-price">
+         <div class="current-price" style="margin-right:50px;">
           {{p.offer_price}}
          </div>
         </div>
@@ -583,6 +611,7 @@
        
       </div>
      </div>
+     {% endif %}
      {% endfor %}
      </div>
      </div>
@@ -1043,7 +1072,7 @@
        </h5>
       </div>
       <div class="col-auto text-md-right">
-       <a class="btn btn-primary btn-sm product-heading-btn" href="#">
+       <a class="btn btn-primary btn-sm product-heading-btn" href="{% url 'products' %}">
         See All
        </a>
       </div>
@@ -1054,7 +1083,7 @@
        <a class="product-img" href="#">
         <img alt="" class="" src="/media/{{b.image}}"/>
        </a>
-       <a class="product-info" href="#">
+       <a class="product-info" href="{% url 'products' %}">
         {{b.name}}
        </a>
       </div>
@@ -1133,23 +1162,24 @@
     <div class="row mb-4">
      <div class="col">
       <h5 class="product-heading">
-       Flash deals
+       Fitness Products
       </h5>
      </div>
      <div class="col-auto text-md-right">
-      <a class="btn btn-primary btn-sm product-heading-btn" href="#">
+      <a class="btn btn-primary btn-sm product-heading-btn" href="{% url 'products' %}">
        See All
       </a>
      </div>
     </div>
     <div class="slider arrow-light slider-gap" data-autoplay="true" data-dots="false" data-nav="true" data-slides-to-show="6">
-     <div class="product">
-      <a class="product-img" href="#">
-       <img alt="" class="" src="static/assets/img/product/product-1.png"/>
+     {% for d in data1 %}
+      <div class="product">
+      <a class="product-img" href="{% url 'productsingle' d.slug %}">
+       <img alt="" class="" src="/media/{{d.image}}"/>
       </a>
-      <div class="product-info">
+      <div class="product-info" style="text-align: center;">
        <div class="product-rating">
-        <i class="fa fa-star">
+        <!-- <i class="fa fa-star">
         </i>
         <i class="fa fa-star">
         </i>
@@ -1161,32 +1191,34 @@
         </i>
         <div class="review-count">
          4.5 (2,213)
-        </div>
+        </div> -->
        </div>
        <h3>
-        <a href="#">
-         TruRadix Curcumin Oral Strip Orange Mango
+        <a href="{% url 'productsingle' d.slug %}">
+         {{d.product_name}}
         </a>
        </h3>
-       <div class="product-value">
+       <div class="product-value" style="margin-left: 40px;">
         <div class="d-flex">
          <small class="regular-price">
           MRP
           <del>
-           â¹250.99
+          {{d.mrp}}
           </del>
          </small>
          <div class="off-price">
-          53% off
+         {{d.offer_percentage}}% off
          </div>
         </div>
-        <div class="current-price">
-         â¹237.99
+        <div class="current-price" style="margin-right :50px;">
+         {{d.offer_price}}
         </div>
        </div>
       </div>
+    
      </div>
-     <div class="product">
+     {% endfor %}
+     <!-- <div class="product">
       <a class="product-img" href="#">
        <img alt="" class="" src="static/assets/img/product/product-2.png"/>
       </a>
@@ -1442,7 +1474,7 @@
          â¹237.99
         </div>
        </div>
-      </div>
+      </div> -->
      </div>
     </div>
    </div>
@@ -1458,7 +1490,7 @@
        </h5>
       </div>
       <div class="col-auto text-md-right">
-       <a class="btn btn-primary btn-sm product-heading-btn" href="#">
+       <a class="btn btn-primary btn-sm product-heading-btn" href="{% url 'products' %}">
         See All
        </a>
       </div>
@@ -1466,10 +1498,10 @@
      <div class="slider arrow-light slider-gap" data-autoplay="true" data-dots="false" data-nav="true" data-slides-to-show="8">
       {% for data in subcat %}
       <div class="product-categories">
-       <a class="product-img bg-white" href="#">
+       <a class="product-img bg-white" href="{% url 'subcategory' data.slug %}">
         <img alt="" class="" src="/media/{{data.image}}"/>
        </a>
-       <a class="product-info" href="#">
+       <a class="product-info" href="{% url 'subcategory' data.slug %}">
         {{data.subcategory_name}}
        </a>
       </div>
@@ -1549,23 +1581,24 @@
     <div class="row mb-4">
      <div class="col">
       <h5 class="product-heading">
-       Flash deals
+       Nutritional Products
       </h5>
      </div>
      <div class="col-auto text-md-right">
-      <a class="btn btn-primary btn-sm product-heading-btn" href="#">
+      <a class="btn btn-primary btn-sm product-heading-btn" href="{% url 'products' %}">
        See All
       </a>
      </div>
     </div>
     <div class="slider arrow-light slider-gap" data-autoplay="true" data-dots="false" data-nav="true" data-slides-to-show="6">
-     <div class="product">
-      <a class="product-img" href="#">
-       <img alt="" class="" src="static/assets/img/product/product-1.png"/>
+     {% for d in data2 %}
+      <div class="product">
+      <a class="product-img" href="{% url 'productsingle' d.slug %}">
+       <img alt="" class="" src="/media/{{d.image}}"/>
       </a>
-      <div class="product-info">
+      <div class="product-info" style="text-align: center;">
        <div class="product-rating">
-        <i class="fa fa-star">
+        <!-- <i class="fa fa-star">
         </i>
         <i class="fa fa-star">
         </i>
@@ -1577,32 +1610,33 @@
         </i>
         <div class="review-count">
          4.5 (2,213)
-        </div>
+        </div> -->
        </div>
        <h3>
-        <a href="#">
-         TruRadix Curcumin Oral Strip Orange Mango
+        <a href="{% url 'productsingle' d.slug %}">
+       {{d.product_name}}
         </a>
        </h3>
-       <div class="product-value">
+       <div class="product-value" style="margin-left:40px;">
         <div class="d-flex">
          <small class="regular-price">
           MRP
           <del>
-           â¹250.99
+           {{d.mrp}}
           </del>
          </small>
          <div class="off-price">
-          53% off
+         {{d.offer_percentage}}% off
          </div>
         </div>
-        <div class="current-price">
-         â¹237.99
+        <div class="current-price" style="margin-right:50px;">
+        {{d.offer_price}}
         </div>
        </div>
       </div>
      </div>
-     <div class="product">
+     {% endfor %}
+     <!-- <div class="product">
       <a class="product-img" href="#">
        <img alt="" class="" src="static/assets/img/product/product-2.png"/>
       </a>
@@ -1859,7 +1893,7 @@
         </div>
        </div>
       </div>
-     </div>
+     </div> -->
     </div>
    </div>
   </div>

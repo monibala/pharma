@@ -1,36 +1,18 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} 
+{% block content %} 
 {% load static %}
 <style>
-    
-    .category{
+    .h{
         margin-left:40px;
     }
    /* Hover */
-   ul {
-            padding: 0;
-            list-style: none;
-            /* background: #f2f2f2;
-            width: 500px; */
-        }
-/*  
-        ul li {
-            display: block;
-            position: relative;
-            line-height: 21px;
-            text-align: left;
-        }
-        ul li a {
-            display: block;
-            
-            color: #333;
-            text-decoration: none;
-        } */
+  
+     
         ul li a:hover {
             color: #fff;
             /* background: #939393; */
         }
-        ul li ul.dropdown-category {
+        ul li ul.cat {
             min-width: 100%;
             /* Set width of the dropdown */
             /* background: #f2f2f2; */
@@ -45,14 +27,15 @@
             left: 5px;
             
         }
-        ul li:hover ul.dropdown-category {
+        ul li:hover ul.cat {
             display: block;
             
             /* Display the dropdown */
         }
 
 </style>
-<main>
+
+  <main>
     <section class="pt-5 pt-md-7">
      <div class="container">
       <div class="row justify-content-between">
@@ -115,12 +98,12 @@
             {% for p in prod %}
          <div class="col-md-4 col-sm-6 col-12">
           <div class="product">
-           <a class="product-img" href="product-single.html">
+           <a class="product-img" href="{% url 'productsingle' p.slug %}">
             <img alt="" class="" src="/media/{{p.image}}"/>
            </a>
-           <div class="product-info">
+           <div class="product-info" style="text-align: center;">
             <div class="product-rating">
-             <i class="fa fa-star">
+             <!-- <i class="fa fa-star">
              </i>
              <i class="fa fa-star">
              </i>
@@ -132,498 +115,111 @@
              </i>
              <div class="review-count">
               4.5 (2,213)
-             </div>
+             </div> -->
             </div>
             <h3>
-             <a href="{% url 'productsingle' p.product_name %}">
+             <a href="{% url 'productsingle' p.slug %}">
              {{p.product_name}}
              </a>
             </h3>
-            <div class="product-value">
+            <div class="product-value" style="margin-left: 60px;">
              <div class="d-flex">
               <small class="regular-price">
                MRP
                <del>
-                â¹250.99
+                {{p.mrp}}
                </del>
               </small>
               <div class="off-price">
-               53% off
+              {{p.offer_percentage}}% off
               </div>
              </div>
-             <div class="current-price">
-              â¹237.99
-             </div>
-            </div>
-           </div>
-           </div>
-           </div>
-           {% endfor %}
-           </div>
-        
-         <!-- </div>
-     
-         <div class="col-md-4 col-sm-6 col-12">
-          <div class="product">
-           <a class="product-img" href="product-single.html">
-            <span class="onsale">
-             Sale!
-            </span>
-            <img alt="" class="" src="assets/img/product/product-2.png"/>
-           </a>
-           <div class="product-info">
-            <div class="product-rating">
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star-half-o">
-             </i>
-             <i class="fa fa-star-o">
-             </i>
-             <div class="review-count">
-              4.5 (2,213)
-             </div>
-            </div>
-            <h3>
-             <a href="product-single.html">
-              Goodlife Nutrition Immunity Boosting
-                                                 Complex
-                                                 Capsule
-             </a>
-            </h3>
-            <div class="product-value">
-             <div class="d-flex">
-              <small class="regular-price">
-               MRP
-               <del>
-                â¹250.99
-               </del>
-              </small>
-              <div class="off-price">
-               53% off
-              </div>
-             </div>
-             <div class="current-price">
-              â¹237.99
+             <div class="current-price" style="margin-right:50px;">
+             {{p.offer_price}}
              </div>
             </div>
            </div>
           </div>
          </div>
-         <div class="col-md-4 col-sm-6 col-12">
-          <div class="product">
-           <a class="product-img" href="product-single.html">
-            <img alt="" class="" src="assets/img/product/product-3.png"/>
-           </a>
-           <div class="product-info">
-            <div class="product-rating">
-             <span>
-              No reating
-             </span>
-            </div>
-            <h3>
-             <a href="product-single.html">
-              CoviFind Covid 19 Antigen Self Test
-                                                 Kit
-             </a>
-            </h3>
-            <div class="product-value">
-             <div class="d-flex">
-              <small class="regular-price">
-               MRP
-               <del>
-                â¹250.99
-               </del>
-              </small>
-              <div class="off-price">
-               53% off
-              </div>
-             </div>
-             <div class="current-price">
-              â¹237.99
-             </div>
-            </div>
-           </div>
-          </div>
-         </div>
-         <div class="col-md-4 col-sm-6 col-12">
-          <div class="product">
-           <a class="product-img" href="product-single.html">
-            <img alt="" class="" src="assets/img/product/product-4.png"/>
-           </a>
-           <div class="product-info">
-            <div class="product-rating">
-             <span>
-              No reating
-             </span>
-            </div>
-            <h3>
-             <a href="product-single.html">
-              Cetaphil Sun Kids Liposomale Lotion SPF
-                                                 30
-             </a>
-            </h3>
-            <div class="product-value">
-             <div class="d-flex">
-              <small class="regular-price">
-               MRP
-               <del>
-                â¹250.99
-               </del>
-              </small>
-              <div class="off-price">
-               53% off
-              </div>
-             </div>
-             <div class="current-price">
-              â¹237.99
-             </div>
-            </div>
-           </div>
-          </div>
-         </div>
-         <div class="col-md-4 col-sm-6 col-12">
-          <div class="product">
-           <a class="product-img" href="product-single.html">
-            <img alt="" class="" src="assets/img/product/product-5.png"/>
-           </a>
-           <div class="product-info">
-            <div class="product-rating">
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star">
-             </i>
-             <div class="review-count">
-              4.5 (2,213)
-             </div>
-            </div>
-            <h3>
-             <a href="product-single.html">
-              Iodex Ultra Gel
-             </a>
-            </h3>
-            <div class="product-value">
-             <div class="d-flex">
-              <small class="regular-price">
-               MRP
-               <del>
-                â¹250.99
-               </del>
-              </small>
-              <div class="off-price">
-               53% off
-              </div>
-             </div>
-             <div class="current-price">
-              â¹237.99
-             </div>
-            </div>
-           </div>
-          </div>
-         </div>
-         <div class="col-md-4 col-sm-6 col-12">
-          <div class="product">
-           <a class="product-img" href="product-single.html">
-            <img alt="" class="" src="assets/img/product/product-6.png"/>
-           </a>
-           <div class="product-info">
-            <div class="product-rating">
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star-half-o">
-             </i>
-             <i class="fa fa-star-o">
-             </i>
-             <div class="review-count">
-              4.5 (2,213)
-             </div>
-            </div>
-            <h3>
-             <a href="product-single.html">
-              Abbott Panbio Covid 19 Antigen Self Test
-                                                 Kit
-             </a>
-            </h3>
-            <div class="product-value">
-             <span class="current-price">
-              â¹325.99
-             </span>
-            </div>
-           </div>
-          </div>
-         </div>
-         <div class="col-md-4 col-sm-6 col-12">
-          <div class="product">
-           <a class="product-img" href="product-single.html">
-            <img alt="" class="" src="assets/img/product/product-7.png"/>
-           </a>
-           <div class="product-info">
-            <div class="product-rating">
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star-half-o">
-             </i>
-             <i class="fa fa-star-o">
-             </i>
-             <div class="review-count">
-              4.5 (2,213)
-             </div>
-            </div>
-            <h3>
-             <a href="product-single.html">
-              TruRadix Curcumin Oral Strip Orange
-                                                 Mango
-             </a>
-            </h3>
-            <div class="product-value">
-             <div class="d-flex">
-              <small class="regular-price">
-               MRP
-               <del>
-                â¹250.99
-               </del>
-              </small>
-              <div class="off-price">
-               53% off
-              </div>
-             </div>
-             <div class="current-price">
-              â¹237.99
-             </div>
-            </div>
-           </div>
-          </div>
-         </div>
-         <div class="col-md-4 col-sm-6 col-12">
-          <div class="product">
-           <a class="product-img" href="product-single.html">
-            <span class="onsale">
-             Sale!
-            </span>
-            <img alt="" class="" src="assets/img/product/product-8.png"/>
-           </a>
-           <div class="product-info">
-            <div class="product-rating">
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star-half-o">
-             </i>
-             <i class="fa fa-star-o">
-             </i>
-             <div class="review-count">
-              4.5 (2,213)
-             </div>
-            </div>
-            <h3>
-             <a href="product-single.html">
-              Goodlife Nutrition Immunity Boosting
-                                                 Complex
-                                                 Capsule
-             </a>
-            </h3>
-            <div class="product-value">
-             <div class="d-flex">
-              <small class="regular-price">
-               MRP
-               <del>
-                â¹250.99
-               </del>
-              </small>
-              <div class="off-price">
-               53% off
-              </div>
-             </div>
-             <div class="current-price">
-              â¹237.99
-             </div>
-            </div>
-           </div>
-          </div>
-         </div>
-         <div class="col-md-4 col-sm-6 col-12">
-          <div class="product">
-           <a class="product-img" href="product-single.html">
-            <img alt="" class="" src="assets/img/product/product-9.png"/>
-           </a>
-           <div class="product-info">
-            <div class="product-rating">
-             <span>
-              No reating
-             </span>
-            </div>
-            <h3>
-             <a href="product-single.html">
-              CoviFind Covid 19 Antigen Self Test
-                                                 Kit
-             </a>
-            </h3>
-            <div class="product-value">
-             <div class="d-flex">
-              <small class="regular-price">
-               MRP
-               <del>
-                â¹250.99
-               </del>
-              </small>
-              <div class="off-price">
-               53% off
-              </div>
-             </div>
-             <div class="current-price">
-              â¹237.99
-             </div>
-            </div>
-           </div>
-          </div>
-         </div>
-         <div class="col-md-4 col-sm-6 col-12">
-          <div class="product">
-           <a class="product-img" href="product-single.html">
-            <img alt="" class="" src="assets/img/product/product-10.png"/>
-           </a>
-           <div class="product-info">
-            <div class="product-rating">
-             <span>
-              No reating
-             </span>
-            </div>
-            <h3>
-             <a href="product-single.html">
-              Cetaphil Sun Kids Liposomale Lotion SPF
-                                                 30
-             </a>
-            </h3>
-            <div class="product-value">
-             <div class="d-flex">
-              <small class="regular-price">
-               MRP
-               <del>
-                â¹250.99
-               </del>
-              </small>
-              <div class="off-price">
-               53% off
-              </div>
-             </div>
-             <div class="current-price">
-              â¹237.99
-             </div>
-            </div>
-           </div>
-          </div>
-         </div>
-         <div class="col-md-4 col-sm-6 col-12">
-          <div class="product">
-           <a class="product-img" href="product-single.html">
-            <img alt="" class="" src="assets/img/product/product-11.png"/>
-           </a>
-           <div class="product-info">
-            <div class="product-rating">
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star">
-             </i>
-             <div class="review-count">
-              4.5 (2,213)
-             </div>
-            </div>
-            <h3>
-             <a href="product-single.html">
-              Iodex Ultra Gel
-             </a>
-            </h3>
-            <div class="product-value">
-             <div class="d-flex">
-              <small class="regular-price">
-               MRP
-               <del>
-                â¹250.99
-               </del>
-              </small>
-              <div class="off-price">
-               53% off
-              </div>
-             </div>
-             <div class="current-price">
-              â¹237.99
-             </div>
-            </div>
-           </div>
-          </div>
-         </div>
-         <div class="col-md-4 col-sm-6 col-12">
-          <div class="product">
-           <a class="product-img" href="product-single.html">
-            <img alt="" class="" src="assets/img/product/product-12.png"/>
-           </a>
-           <div class="product-info">
-            <div class="product-rating">
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star">
-             </i>
-             <i class="fa fa-star-half-o">
-             </i>
-             <i class="fa fa-star-o">
-             </i>
-             <div class="review-count">
-              4.5 (2,213)
-             </div>
-            </div>
-            <h3>
-             <a href="product-single.html">
-              Abbott Panbio Covid 19 Antigen Self Test
-                                                 Kit
-             </a>
-            </h3>
-            <div class="product-value">
-             <span class="current-price">
-              â¹325.99
-             </span>
-            </div>
-      
-           </div>
-           
-     
-          </div>
-          -->
-         </div>
+         {% endfor %}
         </div>
        </div>
-                  <!-- <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
+       <div class="col-md-4 col-sm-6 ">
+        <div class="sidebar-wrapper mt-5 mt-md-0">
+         <div class="sidebar-widget widget_categories">
+          <h6 class="widget-title">
+           Categories
+          </h6>
+          <ul class="widget-list widget-filter-list list-unstyled pt-1" data-simplebar="" data-simplebar-auto-hide="false" style=" padding: 0;
+          list-style: none; overflow-y: hidden;">
+           {% for a in subcat %}
+            <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1" style=" display: block;
+            position: relative;
+            line-height: 21px;
+            text-align: left;">
+            <!-- <div class="form-check"> -->
+             <!-- <input class="form-check-input" id="brand-1" type="checkbox"/> -->
+             <!-- <label class="form-check-label widget-filter-item-text" for="brand-1"> -->
+                <a href=" " style="display: block;
+                /* padding: 8px 25px; */
+                color: #333;
+                text-decoration: none; font-size:15px;">
+              {{a.subcategory_name}}
+              </a>
+             <!-- </label> -->
+            <!-- </div> -->
+            <!-- <span class="fs-xs text-muted">
+             425
+            </span> -->
+            <ul class="cat" >
+                {% for b in a.subcategory.all %}
+            <li class="h">
+                
+               
+                <a href="{% url 'subsubcategory' b.slug %}" style="cursor:pointer;font-size:15px;">{{b.name}}</a> 
+                
+            </li>
+            {% endfor %}
+            </ul>
+           </li>
+           {% endfor %}
+        </ul>
+         </div>
+        </div>
+        <!-- <div class="sidebar-wrapper mt-5 mt-md-0">
+         <div class="sidebar-widget widget_categories">
+          <h6 class="widget-title mb-2">
+           Price
+          </h6>
+          <div class="px-3">
+           <div class="range-slider range-slider-ui" data-max="1000" data-min="0" data-start-max="680" data-start-min="250" data-step="1" id="nouislider">
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="sidebar-wrapper mt-5 mt-md-0">
+         <div class="sidebar-widget widget_categories">
+          <h6 class="widget-title">
+           PRODUCT TAGS
+          </h6>
+          <ul class="widget-list widget-filter-list list-unstyled pt-1" data-simplebar="" data-simplebar-auto-hide="false" style="max-height: 11rem;">
+           <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
             <div class="form-check">
-             <input class="form-check-input" id="brand-2" type="checkbox"/>
-             <label class="form-check-label widget-filter-item-text" for="brand-2">
-              Brand
+             <input class="form-check-input" id="brand-12" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="brand-12">
+              Tag
+                                                 one
+             </label>
+            </div>
+            <span class="fs-xs text-muted">
+             425
+            </span>
+           </li>
+           <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
+            <div class="form-check">
+             <input class="form-check-input" id="brand-22" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="brand-22">
+              Tag
                                                  two
              </label>
             </div>
@@ -633,8 +229,8 @@
            </li>
            <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
             <div class="form-check">
-             <input class="form-check-input" id="Brandina" type="checkbox"/>
-             <label class="form-check-label widget-filter-item-text" for="Brandina">
+             <input class="form-check-input" id="Brandina2" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="Brandina2">
               Brandina
              </label>
             </div>
@@ -644,8 +240,8 @@
            </li>
            <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
             <div class="form-check">
-             <input class="form-check-input" id="Belleaeis" type="checkbox"/>
-             <label class="form-check-label widget-filter-item-text" for="Belleaeis">
+             <input class="form-check-input" id="Belleaeis2" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="Belleaeis2">
               Belleaeis
              </label>
             </div>
@@ -655,8 +251,8 @@
            </li>
            <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
             <div class="form-check">
-             <input class="form-check-input" id="bilabong" type="checkbox"/>
-             <label class="form-check-label widget-filter-item-text" for="bilabong">
+             <input class="form-check-input" id="bilabong2" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="bilabong2">
               Bilabong
              </label>
             </div>
@@ -666,8 +262,8 @@
            </li>
            <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
             <div class="form-check">
-             <input class="form-check-input" id="birkenstock" type="checkbox"/>
-             <label class="form-check-label widget-filter-item-text" for="birkenstock">
+             <input class="form-check-input" id="birkenstock2" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="birkenstock2">
               Birkenstock
              </label>
             </div>
@@ -677,8 +273,8 @@
            </li>
            <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
             <div class="form-check">
-             <input class="form-check-input" id="klein" type="checkbox"/>
-             <label class="form-check-label widget-filter-item-text" for="klein">
+             <input class="form-check-input" id="klein2" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="klein2">
               Calvin
                                                  Klein
              </label>
@@ -689,8 +285,8 @@
            </li>
            <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
             <div class="form-check">
-             <input class="form-check-input" id="columbia" type="checkbox"/>
-             <label class="form-check-label widget-filter-item-text" for="columbia">
+             <input class="form-check-input" id="columbia2" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="columbia2">
               Columbia
              </label>
             </div>
@@ -700,8 +296,8 @@
            </li>
            <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
             <div class="form-check">
-             <input class="form-check-input" id="converse" type="checkbox"/>
-             <label class="form-check-label widget-filter-item-text" for="converse">
+             <input class="form-check-input" id="converse2" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="converse2">
               Converse
              </label>
             </div>
@@ -711,8 +307,8 @@
            </li>
            <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
             <div class="form-check">
-             <input class="form-check-input" id="dockers" type="checkbox"/>
-             <label class="form-check-label widget-filter-item-text" for="dockers">
+             <input class="form-check-input" id="dockers2" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="dockers2">
               Dockers
              </label>
             </div>
@@ -722,8 +318,8 @@
            </li>
            <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
             <div class="form-check">
-             <input class="form-check-input" id="fruit" type="checkbox"/>
-             <label class="form-check-label widget-filter-item-text" for="fruit">
+             <input class="form-check-input" id="fruit2" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="fruit2">
               Fruit of
                                                  the Loom
              </label>
@@ -734,8 +330,8 @@
            </li>
            <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
             <div class="form-check">
-             <input class="form-check-input" id="hanes" type="checkbox"/>
-             <label class="form-check-label widget-filter-item-text" for="hanes">
+             <input class="form-check-input" id="hanes2" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="hanes2">
               Hanes
              </label>
             </div>
@@ -745,8 +341,8 @@
            </li>
            <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
             <div class="form-check">
-             <input class="form-check-input" id="choo" type="checkbox"/>
-             <label class="form-check-label widget-filter-item-text" for="choo">
+             <input class="form-check-input" id="choo2" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="choo2">
               Jimmy
                                                  Choo
              </label>
@@ -757,8 +353,8 @@
            </li>
            <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
             <div class="form-check">
-             <input class="form-check-input" id="levis" type="checkbox"/>
-             <label class="form-check-label widget-filter-item-text" for="levis">
+             <input class="form-check-input" id="levis2" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="levis2">
               Levi's
              </label>
             </div>
@@ -768,8 +364,8 @@
            </li>
            <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
             <div class="form-check">
-             <input class="form-check-input" id="lee" type="checkbox"/>
-             <label class="form-check-label widget-filter-item-text" for="lee">
+             <input class="form-check-input" id="lee2" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="lee2">
               Lee
              </label>
             </div>
@@ -779,8 +375,8 @@
            </li>
            <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
             <div class="form-check">
-             <input class="form-check-input" id="wolverine" type="checkbox"/>
-             <label class="form-check-label widget-filter-item-text" for="wolverine">
+             <input class="form-check-input" id="wolverine2" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="wolverine2">
               Wolverine
              </label>
             </div>
@@ -790,23 +386,109 @@
            </li>
            <li class="widget-filter-item d-flex justify-content-between align-items-center">
             <div class="form-check">
-             <input class="form-check-input" id="wrangler" type="checkbox"/>
-             <label class="form-check-label widget-filter-item-text" for="wrangler">
+             <input class="form-check-input" id="wrangler2" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="wrangler2">
               Wrangler
              </label>
             </div>
             <span class="fs-xs text-muted">
              115
             </span>
-           </li> -->
+           </li>
           </ul>
          </div>
-        </div>
-       
+        </div> -->
+        <!-- <div class="sidebar-wrapper mt-5 mt-md-0">
+         <div class="sidebar-widget widget_categories">
+          <h6 class="widget-title">
+           DISCOUNT
+          </h6>
+          <ul class="widget-list widget-filter-list list-unstyled pt-1" data-simplebar="" data-simplebar-auto-hide="false" style="max-height: 11rem;">
+           <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
+            <div class="form-check">
+             <input class="form-check-input" id="brand-13" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="brand-13">
+              Less than 10%
+             </label>
+            </div>
+            <span class="fs-xs text-muted">
+             425
+            </span>
+           </li>
+           <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
+            <div class="form-check">
+             <input class="form-check-input" id="brand-23" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="brand-23">
+              10% and above
+             </label>
+            </div>
+            <span class="fs-xs text-muted">
+             15
+            </span>
+           </li>
+           <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
+            <div class="form-check">
+             <input class="form-check-input" id="Brandina3" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="Brandina3">
+              20% and above
+             </label>
+            </div>
+            <span class="fs-xs text-muted">
+             18
+            </span>
+           </li>
+           <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
+            <div class="form-check">
+             <input class="form-check-input" id="Belleaeis3" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="Belleaeis3">
+              30%
+                                                 and above
+             </label>
+            </div>
+            <span class="fs-xs text-muted">
+             103
+            </span>
+           </li>
+           <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
+            <div class="form-check">
+             <input class="form-check-input" id="bilabong3" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="bilabong3">
+              40%
+                                                 and above
+             </label>
+            </div>
+            <span class="fs-xs text-muted">
+             27
+            </span>
+           </li>
+           <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
+            <div class="form-check">
+             <input class="form-check-input" id="birkenstock3" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="birkenstock3">
+              50% and above
+             </label>
+            </div>
+            <span class="fs-xs text-muted">
+             10
+            </span>
+           </li>
+           <li class="widget-filter-item d-flex justify-content-between align-items-center mb-1">
+            <div class="form-check">
+             <input class="form-check-input" id="klein3" type="checkbox"/>
+             <label class="form-check-label widget-filter-item-text" for="klein3">
+              60% and above
+             </label>
+            </div>
+            <span class="fs-xs text-muted">
+             365
+            </span>
+           </li>
+          </ul>
+         </div> -->
         </div>
        </div>
       </div>
      </div>
     </section>
    </main>
- {% endblock %}
+   {% endblock %}

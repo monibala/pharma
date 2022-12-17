@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from home.models import Prescriptions
+from home.models import HomeSlider, Prescriptions
 
 # Create your views here.
-from product.models import Product
+from product.models import Cart, Customer_info, Product, reviews
 from django.shortcuts import render,redirect,HttpResponse
 from category.models import Brands, Category, SubCategory, SubSubCategory
 from django.contrib.auth.forms import AuthenticationForm
@@ -11,24 +11,25 @@ from django.contrib import messages
 from .forms import CustomerRegistrationForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 # Create your views here.
 def index(request):
     res = {}
     cat = Category.objects.all()
     subcat = SubCategory.objects.all()
     subsubcat = SubSubCategory.objects.all()
+    slider = HomeSlider.objects.all()
     deals = Product.objects.filter(category_name__category_name='Featured')
+    data1 = Product.objects.filter(category_name__category_name='Fitness')
+    data2 = Product.objects.filter(category_name__category_name = 'Nutrition')
     prod = Product.objects.all()
     brand = Brands.objects.all()
-    res = {'cat':cat, 'subcat':subcat, 'subsubcat':subsubcat,  'prod':prod, 'deals':deals, 'brand':brand}
+    # rev = reviews.objects.all()
+    res = {'slider':slider,'cat':cat, 'subcat':subcat, 'subsubcat':subsubcat,  'prod':prod, 'deals':deals, 'brand':brand,'data1':data1, 'data2':data2}
     return render(request, 'index.html', res)
 
 
 def login_user(request):
-   
-
-
-    
     if request.method == 'POST':
   
         # AuthenticationForm_can_also_be_used__
@@ -41,23 +42,35 @@ def login_user(request):
             # messages.success(request, f' welcome {username} !!')
             return redirect('index')
         else:
-            messages.info(request, f'account done not exit plz sign in')
+            messages.info(request, f'Account does not exist plz sign in')
     form = AuthenticationForm()
-    return render(request, 'login.html', {'form':form, 'title':'log in'})
+    return redirect('index')
+
+from django.contrib.auth import logout
+
+def logout_view(request):
+    Cart.objects.filter(user=request.user).delete()
+    logout(request)
+    return redirect('index')
 def register(request):
+    
+	
     if request.method == 'POST':
         form = CustomerRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            email = form.cleaned_data.get('email')
-           
-            messages.success(request, f'Your account has been created ! You are now able to log in')
-            return redirect('index')
+            # user = form.save()
+            # login(request, user)
+            
+            messages.success(request, "Registration successful." )
+            return redirect("index")
+        messages.error(request, "Unsuccessful registration. Invalid information.")
     else:
-        form = CustomerRegistrationForm()
-    return render(request, 'index.html', {'form': form, 'title':'register here'})
-
+        form =CustomerRegistrationForm()
+    # else:
+    #     form = CustomerRegistrationForm()
+    # return render(request, 'index.html', {'form': form, 'title':'register here'})
+    return redirect('index')
 def policy(request):
     return render(request,'policy.html')
 @login_required
@@ -82,3 +95,21 @@ def uploadprescription(request):
     return render(request,'uploadprescription.html')
 
     # return render(request,'uploadprescription.html')
+def search(request):
+    cat = Category.objects.all()
+    subcat = SubCategory.objects.all()
+    if request.method == 'GET':
+        query = request.GET.get('search')
+        print(query)
+        if query:
+            
+            data = Product.objects.filter(product_name__icontains=query)
+            print(data)
+            return render(request,'products.html',{'data':data, 'cat':cat, 'subcat':subcat})
+        else:
+            print('No information available!!')
+            return redirect('index') 
+# def search(request):
+#     context={}
+#     data =Product.objects.filter(product_name__icontains=request.GET.get('search'))
+#     return render(request, "products.html", {'data':data})

@@ -37,28 +37,28 @@
              <div class="c-item-body">
               <div class="cart_item_title mb-2">
                <h4>
-                {{items.product.name}}
+                {{items.product.product_name}}
                </h4>
-               <p class="small mb-0 text-muted">
+               <!-- <p class="small mb-0 text-muted">
                 bottle of 60 capsules
-               </p>
+               </p> -->
               </div>
               <div class="cart_item_price">
                <div class="product-price">
                 <span>
                  <strong>
-                  â¹499
+                  {{items.product.offer_price}}
                  </strong>
                  <del>
-                  â¹1,000
+                     {{items.product.mrp}}
                  </del>
                  <small class="product-discountPercentage">
-                  (50% OFF)
+                  ( {{items.product.offer_percentage}}% OFF)
                  </small>
                 </span>
                </div>
                <div class="cart_product_remove">
-                <a href="#">
+                <a href="{% url 'removewishitems' items.id%}">
                  <i class="ti-trash">
                  </i>
                  Remove

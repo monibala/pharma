@@ -3,27 +3,50 @@ from django.db import models
 # Create your models here.
 from django.db import models
 from django.contrib.auth.models import User
-from category.models import Category, SubCategory, SubSubCategory
-
+from category.models import Brands, Category, SubCategory, SubSubCategory
+from django.utils.text import slugify
+import random, string
 # Create your models here.
+def unique_slug_generator(instance, new_slug=None):
+    """
+    This is for a Django project and it assumes your instance 
+    has a model with a slug field and a title character (char) field.
+    """
+    slug=slugify(new_slug)[:50]
+    Klass = instance
+    qs_exists = Klass.objects.filter(slug=slug).exists()
+    if qs_exists:
+        new_slug = slugify(str(slug)[:46]+get_random_string(4))
+        return unique_slug_generator(instance, new_slug=new_slug)
+    return slug
+def get_random_string(size):
+    return ''.join(random.choices(string.ascii_uppercase +
+                             string.digits, k = size))
 class Product(models.Model):
     product_name = models.CharField(max_length=100)
     category_name = models.ForeignKey(Category, on_delete=models.CASCADE,related_name='category')
     subcategory_name = models.ForeignKey(SubCategory,on_delete=models.CASCADE,default = 1,related_name='subcat')
     subsubcategory_name = models.ForeignKey(SubSubCategory,on_delete=models.CASCADE,default = 1,related_name='subsubcategory')
+    brands = models.ForeignKey(Brands,on_delete=models.CASCADE,default = 1,related_name='brand')
     description = models.TextField()
     mrp = models.IntegerField(default=1)
     offer_price = models.IntegerField(default=1)
     offer_percentage = models.IntegerField(default=1)
     image = models.ImageField(null='True',upload_to='media/')
-
+    slug = models.SlugField(blank=True) 
+    def save(self, *args, **kwargs):
+        if self.id is None or self.slug is None or len(self.slug)==0:
+            self.slug = unique_slug_generator(Product,self.product_name)
+        super().save()
+    def __str__(self):
+        return self.product_name
 class Cart(models.Model):
     user = models.ForeignKey(User , on_delete = models.CASCADE)
     product = models.ForeignKey(Product , on_delete = models.CASCADE)
     quantity = models.PositiveIntegerField(default =1)
 
     def __str__(self):
-        return str(self.id)    
+        return str(self.product)    
 
     @property
     def total_cost(self):
@@ -65,4 +88,29 @@ class Customer_info(models.Model):
     state= models.CharField(choices=STATE_CHOICES,max_length=100)
 
     def __str__(self):
+        return str(self.name)
+RATING_CHOICES = (
+        (5, '*****'),
+        (4, '****'),
+        (3, '***'),
+        (2, '**'),
+        (1, '*'),
+    )
+class reviews(models.Model):
+    product_name = models.CharField(max_length=250,null=True)
+    name = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
+    email = models.EmailField(max_length=100)
+    mobile = models.IntegerField(null=True)
+    comment = models.CharField(max_length=250)
+    description = models.TextField(blank=True)
+    rating = models.IntegerField(choices=RATING_CHOICES, default=1)
+    slug = models.SlugField(blank=True)
+    def __str__(self) -> str:
         return str(self.id)
+    # image = models.ImageField(upload_to='media', null=True)
+    # def __str__(self) -> str:
+    #     return f"{self.name} ({self.product_name})"
+    def save(self, *args, **kwargs):
+        if self.id is None or self.slug is None or len(self.slug)==0:
+            self.slug = unique_slug_generator(Product,self.product_name)
+        super().save()

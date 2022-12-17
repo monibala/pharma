@@ -4,12 +4,14 @@
        
                 <div class="third container">
                     <div class="row">
-                  
+                        {% with ''|sidebardata as sidebar %}
                      {% for key , val in sidebar.items %}
                         <div class="col-md-4 mt-5 mb-3">
+                   
                             <div class="card card-hover">
                                 <div class="dash-box text-white">
                                     <h1 class="dash-icon">
+                                    
                                         <i class="fas fa-user-secret mb-1 font-16"></i>
                                     </h1>
                                     <div class="dash-content">
@@ -22,7 +24,7 @@
                             </div>
                         </div>
                     {% endfor %}
-                  
+                    {% endwith %}
                         {% comment %} <div class="col-md-4 mt-5 mb-3">
                             <div class="card card-hover">
                                 <div class="dash-box text-white">
@@ -126,7 +128,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> {% endcomment %}
+                        </div> 
+                        {% endcomment %}
                     </div>
                 </div>
 

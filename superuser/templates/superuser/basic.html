@@ -1,7 +1,8 @@
 <!doctype html>
 <html class="no-js" lang="en_GB" dir="ltr">
 {% load static %}
-
+{% load custumfilter %}
+{% with ''|getaboutdata as aboutdata %}
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -101,7 +102,9 @@
             <div class="sidebar-header">
                 <div class="logo">
                     <a href=" {% url 'dashboardindex' %} ">
-                        <img src=" {{info.logo.url}} " alt="" />
+                        <!-- <img src=" {% static 'assets/img/favicon.png' %} " alt="dashbord" style="height:25px;"/> 
+                        <span style="font-size:20px;color:black">HOSPITANIA</span> -->
+                        <img src=" /media/{{aboutdata.0.logo}} " alt="dashbord" />
                     </a>
                 </div>
             </div>
@@ -338,5 +341,5 @@
     </script>
     
 </body>
-
+{% endwith %}
 </html>
