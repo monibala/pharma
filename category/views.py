@@ -9,13 +9,14 @@ from product.models import Product
 def category(request,slug):
     res= {}
     res['category'] = Category.objects.filter(slug=slug)
+    catdata = Category.objects.get(slug=slug)
     # res['pagetitle'] = res['category'].category_name
     cat = Category.objects.all()
     subcat = SubCategory.objects.all()
     subsubcat = SubSubCategory.objects.all()
     # category = Category.objects.get(id=id)
     # subsubcat = SubSubCategory.objects.filter(category_name__category_name=category)
-    prod = Product.objects.filter(category_name=slug)
+    prod = Product.objects.filter(category_name=catdata)
     res = {'cat':cat, 'subcat':subcat,'subsubcat':subsubcat,'prod':prod}
     return render(request, 'category.html', res)
 def subcategory(request,slug):

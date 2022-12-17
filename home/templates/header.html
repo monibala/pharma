@@ -1921,22 +1921,26 @@
        <h6>
         Category
        </h6>
-       <ul class="header-links-container"  style="line-height: 7.5px;">
+       <ul>
      
          {% for data in ""|getcategory %}
         <li>
-         <a href="#">
+         <a href="{% url 'category' data.slug %}">
           {{data.category_name}}
          </a>
+         </li>
+         {% endfor %}
+         </ul>
     
         <!-- <i class="fa fa-angle-down drop-icon"> -->
        <!-- </i> -->
    
-       <div class="header-childrenItem-child-category-links">
-        <ul class="header-childrenItem-child-list">
+       <!-- <div class="header-childrenItem-child-category-links"> -->
+        <!-- <ul> -->
+          {% comment %}
          {% for range in data.subcategory.all|getrange %}
          {% for  mdata in data.subcategory.all|slice:range %}
-         <li>
+         <!-- <li> -->
           <a class="childItem-level-2" href="">
            <span class="header-childrenItem-link-text">
             {{mdata.subcategory_name}}
@@ -1944,9 +1948,9 @@
           </a>
           </li>
           <!-- <i class="fa fa-angle-right"></i> -->
-          <ul>
+          <!-- <ul> -->
           {% for data in mdata.subcategory.all %}
-         <li>
+         <!-- <li> -->
            <a class="childItem-level-2" href="">
             <span class="header-childrenItem-link-text">
              {{data.name}}
@@ -1960,13 +1964,14 @@
          {% endfor %}
        </ul>
      </li>
+     </ul>
        {% endfor %}
    
-       <!-- </ul>
+       </ul>
       </div>
      </div>
-     </div>   -->
-     
+     </div>  
+     {% endcomment %}
       
      </div>
     </div>
