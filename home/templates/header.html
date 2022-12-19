@@ -280,6 +280,7 @@
       <div class="col-auto">
         <ul class="header-right-options">
          <li class="link-item">
+          
           <!--  -->
       
        
@@ -1847,10 +1848,11 @@
       <div class="col text-center">
        <img alt="logo" class="header-logo" src="{% static 'assets/img/logo.png' %}"/>
       </div>
+      {% if request.user.is_authenticated %}
+      Welcome {{user.username | capfirst}}
       <div class="col-auto">
        <ul class="header-right-options">
-        {% if request.user.is_authenticated %}
-        Welcome {{user.username | capfirst}}
+       
           
     
       
@@ -1858,18 +1860,18 @@
         <li class="link-item">
        
          <span class="badge badge-secondary">
-          {{cardata.count}}
+          {{cartdata.count}}
          </span>
          <i class="ti-bag">
          </i>
          
         </li>
-        {% endwith %}
-        {% endif %}
+       
        </ul>
       </div>
      </div>
-     
+     {% endwith %}
+     {% endif %}
     
      <div class="menu-sidebar">
       <div class="close">
