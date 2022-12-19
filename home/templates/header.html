@@ -1845,38 +1845,51 @@
        </ul>
       </div>
       <div class="col text-center">
-       <img alt="logo" class="header-logo" src="assets/img/logo.png"/>
+       <img alt="logo" class="header-logo" src="{% static 'assets/img/logo.png' %}"/>
       </div>
       <div class="col-auto">
        <ul class="header-right-options">
+        {% if request.user.is_authenticated %}
+        Welcome {{user.username | capfirst}}
+          
+    
+      
+        {% with ''|getCart as cartdata %}
         <li class="link-item">
+       
          <span class="badge badge-secondary">
-          0
+          {{cardata.count}}
          </span>
          <i class="ti-bag">
          </i>
+         
         </li>
+        {% endwith %}
+        {% endif %}
        </ul>
       </div>
      </div>
+     
+    
      <div class="menu-sidebar">
       <div class="close">
        <i class="ti-close">
        </i>
       </div>
-      
-      <div class="welcome d-flex align-items-center">
+    
+     
+      <!-- <div class="welcome d-flex align-items-center">
        <a class="btn btn-soft-primary btn-md" data-dismiss="modal" data-target="{% url 'login' %}" data-toggle="modal" href="#">
         Login
        </a>
        <a class="btn btn-primary btn-md" data-dismiss="modal" data-target="{% url 'register' %}" data-toggle="modal" href="#">
         Register
-       </a>
+       </a> -->
        <!-- <div class="avater btn-soft-primary">H</div>
-                     <span>Hi, Deep saha</span> -->
-      </div>
+                     <span>Hi, {{user.username | capfirst}}</span> -->
+      <!-- </div> -->
      
-    
+    {% if request.user.is_authenticated %}
       <div class="mobileMenuLinks mb-4 mt-2">
        <h6>
         Account Info
@@ -1898,25 +1911,25 @@
          </a>
         </li>
         <li>
-         <a href="index.html">
+         <a href="{% url 'logout' %}">
           Logout
          </a>
         </li>
        </ul>
       </div>
-     
+     {% else %}
       <div class="welcome d-flex align-items-center">
-       <a class="btn btn-soft-primary btn-md" data-dismiss="modal" data-target="{% url 'login' %}" data-toggle="modal" href="#">
+       <a class="btn btn-soft-primary btn-md" data-dismiss="modal" data-target="#login_modal" data-toggle="modal"  onclick="login_user">
         Login
        </a>
-       <a class="btn btn-primary btn-md" data-dismiss="modal" data-target="{% url 'register' %}" data-toggle="modal" href="#">
+       <a class="btn btn-primary btn-md" data-dismiss="modal" data-target="#register_modal" data-toggle="modal" href="#" onclick="register">
         Register
        </a>
       
        <!-- <div class="avater btn-soft-primary">H</div>
                      <span>Hi, Deep saha</span> -->
       </div>
-   
+      {% endif %}
       <div class="mobileMenuLinks">
        <h6>
         Category

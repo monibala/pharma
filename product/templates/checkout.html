@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block content %}
   <section class="section-padding mt-5">
    <div class="container">
@@ -22,17 +23,7 @@
            <input class="form-control" type="text" value="Jhon" name="name" id="name"/>
           </div>
          </div>
-         <!-- <div class="col-sm-6">
-          <div class="form-group mb-4">
-           <label class="form-label">
-            Last name
-            <span class="text-danger">
-             *
-            </span>
-           </label>
-           <input class="form-control" type="text" value="Doe"/>
-          </div>
-         </div> -->
+         
          <div class="col-12">
           <div class="form-group mb-4">
            <label class="form-label">
@@ -55,17 +46,7 @@
            <input class="form-control" type="text" value="" name="mobile" id="mobile"/>
           </div>
          </div>
-         <!-- <div class="col-12">
-          <div class="form-group mb-4">
-           <label class="form-label">
-           city
-            <span class="text-danger">
-             *
-            </span>
-           </label>
-           <input class="form-control" type="email" value="j" name="city" id="city"/>
-          </div>
-         </div> -->
+        
          <div class="col-sm-6">
           <div class="form-group mb-4">
            <label class="form-label">
@@ -90,49 +71,11 @@
            <input class="form-control" type="text" value="" name="state" id="state"/>
           </div>
          </div>
-         <!-- <div class="col-sm-6">
-          <div class="form-group mb-4">
-           <label class="form-label">
-            Country
-            <span class="text-danger">
-             *
-            </span>
-           </label>
-           <select class="form-control">
-            <option value="">
-             Select country
-            </option>
-            <option value="Argentina">
-             Argentina
-            </option>
-            <option value="Belgium">
-             Belgium
-            </option>
-            <option value="France">
-             France
-            </option>
-            <option selected="" value="India">
-             India
-            </option>
-            <option value="Germany">
-             Germany
-            </option>
-            <option value="Spain">
-             Spain
-            </option>
-            <option value="UK">
-             United Kingdom
-            </option>
-            <option value="USA">
-             USA
-            </option>
-           </select>
-          </div>
-         </div> -->
+        
         </div>
         <!-- <button class="primary" type="submit" name="submit">Submit</button> -->
        
-      
+        <div onclick="submit_form()">Click Me To Submit</div>
          <!-- <div id="paypal-button-container"></div> -->
        
          <!-- <div class="accordion-item"> 
@@ -158,40 +101,50 @@
              Checkout with PayPal
             </a> -->
           <!-- Render the radio buttons and marks -->
-          
-<!-- <label>
-  <input type="radio" name="payment-option" value="paypal" >
  
-  
-  <button type="submit" class="alt btn btn-primary order-btn">Paypal</button>
+<label>
+  <!-- <input type="radio" name="payment-option" value="paypal" > -->
+  <!-- <button type="submit" class="alt btn btn-primary order-btn" id="paypal-buttons-container"  name="payment-option" value="paypal">Paypal</button> -->
+  <!-- <div id="paypal-marks-container"></div> -->
+  <!-- <div id="paypal-buttons-container">
+ 
+  </div> -->
+  <!-- <button type="submit" class="alt btn btn-primary order-btn">Paypal</button> -->
 </label>
 <br>
+
 <label>
-  <input type="radio" name="payment-option" value="alternate" > -->
-  <!-- <div id="paypal-marks-container"></div> -->
-  <!-- <button type="submit" class="alt btn btn-primary order-btn">Cash on Delivery</button>
+  <!-- <input type="radio" name="payment-option" value="alternate" > -->
+  <!-- <div id="container" ></div> -->
+  <!-- <button type="submit" class="alt btn btn-primary order-btn">Cash on Delivery</button> -->
 </label>
 
-<div id="paypal-buttons-container">
- 
-</div>
-<div id="alternate-button-container"> -->
-  <!-- <button>Pay with a different method</button> -->
-  <!-- <button type="submit" class="alt btn btn-primary order-btn"
+<label> 
+  <!-- <div id="alternate-button-container"></div> -->
+    <!-- <button type="submit" class="alt btn btn-primary order-btn">Cash on Delivery</button>  -->
+</label> 
+
+<!-- <div id="alternate-button-container">
+  <button>Pay with a different method</button>
+  <button type="submit" class="alt btn btn-primary order-btn"
 																name="woocommerce_checkout_place_order" id="place_order"
 																value="Place order" data-value="Place order">Pay
-																on delivery</button> -->
+																on delivery</button>
 
-                                <!-- <input type="" value="payment-option"> -->
-<!-- </div> -->
-<div onclick="submit_form()">Click Me To Submit</div>
-          <div id="paypal-button-container" style="width: 100px;margin-left: 260px;">
+                       <input type="" value="payment-option"> 
+</div> -->
+      <div class="row">
+        <div class ="col">
+          <div id="paypal-button-container"  style="width: 200px">
           
           </div>
-        <div id="container" style="margin-left: 250px;width: 20px"></div>
-           </div>
-          </div>
-         </div>
+        </div>
+        <div class ="col">
+          <div id="container" style="width: 200px"></div>
+          <button type="submit" class="alt btn btn-primary order-btn"  style="width: 200px">Cash on Delivery</button> 
+        </div>
+        </div>
+   
          <!-- <div class="accordion-item"> -->
           <!-- accordion Title -->
           <!-- <div class="accordion-title">
@@ -220,15 +173,15 @@
            
           </div>
          </div>  -->
-        <!-- </div>
-       </div> 
+        
+       
       </div>
-     </div> -->
+     </div>
     </form>
-    <!-- </div>
     </div>
-    </div>
-    </div> -->
+  
+ 
+ 
 
      <div class="col-lg-3 mt-lg-0 mt-6">
       <h6 class="font-weight-bold">
@@ -296,7 +249,7 @@
     </div>
    </div>
   </section>
-  {% block payment-gateway %} 
+ 
  <!-- Gpay -->
  <div id="container"></div>
 
@@ -428,7 +381,7 @@ function getGooglePaymentDataRequest() {
  */
 function getGooglePaymentsClient() {
   if ( paymentsClient === null ) {
-    paymentsClient = new google.payments.api.PaymentsClient({environment: 'TEST'});
+    paymentsClient = new google.payments.api.PaymentsClient({environment: 'PRODUCTION'});
   }
   return paymentsClient;
 }
@@ -545,6 +498,10 @@ function processPayment(paymentData) {
 <!-- Replace "test" with your own sandbox Business account app client ID -->
 <script src="https://www.paypal.com/sdk/js?client-id=AafKeAGTEqrMF4S2Tjxl5iV5KDeJCB_0Gpdi0uhCK5bd4dtibld84YIXna8ueCtV_u7vzXp9EVYdJIJD
 &currency=USD"></script>
+{% block payment-gateway %} 
+<!-- Replace "test" with your own sandbox Business account app client ID -->
+<script src="https://www.paypal.com/sdk/js?client-id=AafKeAGTEqrMF4S2Tjxl5iV5KDeJCB_0Gpdi0uhCK5bd4dtibld84YIXna8ueCtV_u7vzXp9EVYdJIJD
+&currency=USD"></script>
 <!-- Set up a container element for the button -->
 <div id="paypal-button-container"></div>
 
@@ -552,7 +509,6 @@ function processPayment(paymentData) {
 <!-- Replace "test" with your own sandbox Business account app client ID -->
 <script src="https://www.paypal.com/sdk/js?client-id=Ad0KMXw-MdCn3L37yDa4Esc0PnlsDH3t2NYuzDL9EmL0LmV5cn4wYNoQ0Kd79JeymRClWAnxUiXTqia4&currency=USD"></script>
 <!-- Set up a container element for the button -->
-
 <script>
   paypal.Buttons({
     // Sets up the transaction when a payment button is clicked
