@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from home.models import HomeSlider, Prescriptions
 
-# Create your views here.
+
 from product.models import Cart, Customer_info, Product, reviews
 from django.shortcuts import render,redirect,HttpResponse
 from category.models import Brands, Category, SubCategory, SubSubCategory
@@ -12,6 +12,7 @@ from .forms import CustomerRegistrationForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.auth import logout
 # Create your views here.
 def index(request):
     res = {}
@@ -46,7 +47,7 @@ def login_user(request):
     form = AuthenticationForm()
     return redirect('index')
 
-from django.contrib.auth import logout
+
 
 def logout_view(request):
     Cart.objects.filter(user=request.user).delete()
@@ -91,7 +92,7 @@ def uploadprescription(request):
             presimg.save()
         
         messages.success(request,'Your Prescription uploaded successfully we will get back to you soon')
-        return render(request,'uploadprescription.html')
+        return render(request,'uploadprescription.html',{'presimg':presimg})
     return render(request,'uploadprescription.html')
 
     # return render(request,'uploadprescription.html')

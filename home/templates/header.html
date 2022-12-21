@@ -1952,42 +1952,7 @@
    
        <!-- <div class="header-childrenItem-child-category-links"> -->
         <!-- <ul> -->
-          {% comment %}
-         {% for range in data.subcategory.all|getrange %}
-         {% for  mdata in data.subcategory.all|slice:range %}
-         <!-- <li> -->
-          <a class="childItem-level-2" href="">
-           <span class="header-childrenItem-link-text">
-            {{mdata.subcategory_name}}
-           </span>
-          </a>
-          </li>
-          <!-- <i class="fa fa-angle-right"></i> -->
-          <!-- <ul> -->
-          {% for data in mdata.subcategory.all %}
-         <!-- <li> -->
-           <a class="childItem-level-2" href="">
-            <span class="header-childrenItem-link-text">
-             {{data.name}}
-            </span>
-           </a>
-         </li>
-         {% endfor %}
-         </ul>
-     
-         {% endfor %}
-         {% endfor %}
-       </ul>
-     </li>
-     </ul>
-       {% endfor %}
-   
-       </ul>
       </div>
-     </div>
-     </div>  
-     {% endcomment %}
-      
      </div>
     </div>
    </div>
