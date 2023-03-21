@@ -22,17 +22,46 @@ def unique_slug_generator(instance, new_slug=None):
 def get_random_string(size):
     return ''.join(random.choices(string.ascii_uppercase +
                              string.digits, k = size))
+color_choice = (
+    ('WHITE' ,'WHITE'),
+    ('BLUE','BLUE'),
+    ('PINK','PINK'),
+    ('MAROON','MAROON'),
+    ('IVORY','IVORY'),
+    ('RED','RED'),
+    ('ORANGE','ORANGE'),
+    ('GREEN','GREEN'),
+    ('YELLOW','YELLOW'),
+    ('GOLDEN','GOLDEN'),
+    ('BROWN','BROWN'),
+    ('SILVER','SILVER'),
+
+)
+size_choice = (
+    ('LARGE','LARGE'),
+    ('MEDIUM','MEDIUM'),
+    ('SMALL','SMALL'),
+    
+)
+avail_choice = (
+    ('IN STOCK','IN STOCK'),
+    ('OUT OF STOCK', 'OUT OF STOCK'),
+)
 class Product(models.Model):
     product_name = models.CharField(max_length=100)
     category_name = models.ForeignKey(Category, on_delete=models.CASCADE,related_name='category')
-    subcategory_name = models.ForeignKey(SubCategory,on_delete=models.CASCADE,default = 1,related_name='subcat')
-    subsubcategory_name = models.ForeignKey(SubSubCategory,on_delete=models.CASCADE,default = 1,related_name='subsubcategory')
-    brands = models.ForeignKey(Brands,on_delete=models.CASCADE,default = 1,related_name='brand')
+    subcategory_name = models.ForeignKey(SubCategory,on_delete=models.CASCADE,blank=True,null=True,related_name='subcat')
+    subsubcategory_name = models.ForeignKey(SubSubCategory,on_delete=models.CASCADE,blank=True,null=True,related_name='subsubcategory')
+    # brands = models.ForeignKey(Brands,on_delete=models.CASCADE,default = 1,related_name='brand')
     description = models.TextField()
     mrp = models.IntegerField(default=1)
     offer_price = models.IntegerField(default=1)
     offer_percentage = models.IntegerField(default=1)
     image = models.ImageField(null='True',upload_to='media/')
+    color = models.CharField(max_length=100,choices=color_choice,blank=True,default='WHITE')
+    size = models.CharField(max_length=100,choices=size_choice,blank=True,default='SMALL')
+    code = models.CharField(max_length=100,default='DBMS1')
+    availability = models.CharField(max_length=100,choices=avail_choice,default='IN STOCK')
     slug = models.SlugField(blank=True) 
     def save(self, *args, **kwargs):
         if self.id is None or self.slug is None or len(self.slug)==0:

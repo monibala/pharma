@@ -16,6 +16,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate
+from django.core.paginator import Paginator
 # Create your views here.
 def productsingle(request,slug):
     if request.user.is_authenticated:
@@ -51,7 +52,19 @@ def products(request):
     cat = Category.objects.all()
     subcat = SubCategory.objects.all()
     data = Product.objects.all()
-    res = {'data':data, 'cat':cat, 'subcat':subcat}
+    # Pagination
+    p = Paginator(data, per_page=10)  # creating a paginator object
+    # getting the desired page number from url
+    page_number = request.GET.get('page')
+    try:
+        page_obj = p.get_page(page_number)  # returns the desired page object
+    except page_number < 1:
+        # if page_number is not an integer then assign the first page
+        page_obj = p.page(1)
+    except page_number==0:
+        # if page is empty then return last page
+        page_obj = p.page(p.num_pages)
+    res = {'data':data, 'cat':cat, 'subcat':subcat, 'page_obj': page_obj}
     return render(request, 'products.html', res)
 # def checkout(request):
 #     user = request.user

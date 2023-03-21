@@ -40,9 +40,9 @@
      <div class="container">
       <div class="row justify-content-between">
        <div class="col-md-8 order-md-2">
-        <div class="row shop-header align-items-center">
-         <div class="col-lg-6">
-          <div class="grid-icons">
+        <div class="row  align-items-center">
+         <!-- <div class="col-lg-6"> -->
+          <!-- <div class="grid-icons">
            <button class="three-column active">
            </button>
            <button class="four-column d-none d-lg-block">
@@ -51,9 +51,9 @@
            </button>
            <button class="list-view">
            </button>
-          </div>
+          </div> -->
          </div>
-         <div class="col-lg-6 text-lg-right">
+         <!-- <div class="col-lg-6 text-lg-right">
           <div class="single-select-block d-inline-block">
            <span class="select-title">
             Show:
@@ -92,8 +92,8 @@
             </option>
            </select>
           </div>
-         </div>
-        </div>
+         </div> -->
+        <!-- </div> -->
         <div class="row">
             {% for p in data %}
          <div class="col-md-4 col-sm-6 col-12">
@@ -491,4 +491,47 @@
      </div>
     </section>
    </main>
+   <!-- Pagination -->
+   {{data.number}}
+   <div class="pagination" style="margin-left:600px;">
+    {% if page_obj.has_other_pages %}
+    <!-- <nav>
+        <ul class="pagination theme-colored" style="font-size:20px;"> -->
+            {% if page_obj.has_previous %}
+            <!-- <li> -->
+              <a href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+            <!-- </li> -->
+            {% else %}
+            <!-- <li class="disabled"> -->
+              <span>&laquo;</span>
+            <!-- </li> -->
+            {% endif %}
+            {% for i in page_obj.paginator.page_range %}
+            {% if  forloop.counter == 1 and request.GET.page == none %}
+            <!-- <li class="active"> -->
+              <a>{{i}} <span class="sr-only">(current)</span></a>
+            <!-- </li> -->
+            {% elif  request.GET.page == i|slugify %}
+            <!-- <li class="active"> -->
+              <a>{{i}} <span class="sr-only">(current)</span></a>
+            <!-- </li> -->
+            {% else %}
+            <!-- <li> -->
+              <a href="?page={{ i }}">{{ i }}</a>
+            <!-- </li> -->
+            {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+            <!-- <li> -->
+              <a href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+            <!-- </li> -->
+            {% else %}
+            <!-- <li class="disabled"> -->
+              <span>&raquo;</span>
+            <!-- </li> -->
+            {% endif %}
+        <!-- </ul>
+    </nav> -->
+    {% endif %}
+  </div>
    {% endblock %}
