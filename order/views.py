@@ -8,6 +8,7 @@ from order.models import OrderItem, update_order, wishitems
 from django.contrib.auth.decorators import login_required
 from product.models import Cart, Customer_info, Product
 from django.contrib.auth.models import User
+from django.contrib import messages
 # Create your views here.
 @login_required
 def order(request):
@@ -27,7 +28,7 @@ def show_wishlist(request):
     wish = wishitems.objects.all()
     return render(request,'wishlist.html',{'wish':wish})
 
-@login_required
+# @login_required
 def wishlist(request):
     if request.user.is_authenticated:
         
@@ -35,7 +36,10 @@ def wishlist(request):
         product_id = request.GET.get('prod_id')
         prod = Product.objects.get(id = product_id)
         wishitems(user=user,product=prod).save()
-    return redirect('show_wishlist')
+        return redirect('show_wishlist')
+    else:
+        messages.info(request,'Please Login')
+        return redirect('login')
 
 @login_required
 def paymentdone(request):

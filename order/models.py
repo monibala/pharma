@@ -32,7 +32,11 @@ class OrderItem(models.Model):
     quntity=models.IntegerField(default=1)
     payment=models.CharField(max_length=100,null=True)
     amount=models.IntegerField(default=1)
-    
+    code = models.CharField(max_length=100,default='None')
+    color = models.CharField(max_length=100,default='None',blank=None)
+    size = models.CharField(max_length=100,blank=None,default='None')
+    # quantity = models.PositiveIntegerField(default =1)
+
     status = models.CharField(max_length=50 , choices=STATUS_CHOICES, default ='Pending')
     order_date=models.DateTimeField(auto_now_add=True,null=True)
     def save(self, *args, **kwargs):

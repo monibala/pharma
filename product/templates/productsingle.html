@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
+<!-- Messages -->
+{% for message in messages  %}            
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="width:700px;margin-left: 80px;">
+      <strong>Message : </strong> {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      
+    </div>
+{% endfor %} 
 <section class="section-padding mt-4" style="margin-left:50px;">
     <div class="container-fluid">
      <div class="row justify-content-between">
@@ -56,12 +66,12 @@
        <div class="row pl-lg-3">
         <div class="col-lg-7">
          <div class="single-product-content-description">
-          <p class="single-info">
+          <!-- <p class="single-info">
            Brands
            <a href="">
             {{prod.brands}}
            </a>
-          </p>
+          </p> -->
           <h4 class="product-title">
            {{prod.product_name}}
           </h4>
@@ -209,6 +219,7 @@
           </div> -->
          </div>
         </div>
+        
         <div class="col-lg-5 mt-4 mt-lg-0">
          <div class="bg-light p-3">
           <h6>
@@ -305,16 +316,19 @@
           <h6 class="font-weight-bold text-dark">
            Delivery availability
           </h6>
+          <!-- <form method="post">{% csrf_token %} -->
           <div class="input-group">
-           <input class="form-control custom-location" placeholder="Delivery Pincode" type="text"/>
+           <input class="form-control custom-location" placeholder="Delivery Pincode" type="number" name="zipcode"/>
            <div class="input-group-prepend">
             <span class="input-group-text bg-primary text-white cursor-pointer">
-           Check
+           <a href="{% url 'checkpincode' %}" style="color:rgb(33, 32, 32);">Check</a>
             </span>
            </div>
           </div>
+          <!-- </form> -->
          </div>
         </div>
+        
        </div>
       </div>
      </div>
@@ -328,14 +342,9 @@
          Description
         </h3>
         <p>
-         Lorem ipsum dolor sit amet consectetur adipisicing elit. A tenetur culpa
-                             quis aut, ex totam fugit nam consequuntur corporis deserunt quos
-                             molestias temporibus sit aliquam, provident molestiae modi, rem
-                             pariatur. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum voluptates
-                             sunt tempore exer cum labore, delectus asperiores molestias saepe
-                             consequatur totam sed.
+         {{prod.description}}
         </p>
-        <p>
+        <!-- <p>
          Pellentesque aliquet, sem eget laoreet ultrices, ipsum metus feugiat sem, quis
                              fermentum turpis eros eget velit. Donec ac tempus ante. Fusce ultricies massa
                              massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero hendrerit
@@ -343,7 +352,7 @@
                              adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere
                              nisl, in accumsan elit odio quis mi. Cras neque metus, consequat et blandit et,
                              luctus a nunc. Etiam gravida vehicula tellus, in imperdiet ligula euismod eget.
-        </p>
+        </p> -->
         <!-- <h3 class="entry-product-section-heading">
          Additional information
         </h3>

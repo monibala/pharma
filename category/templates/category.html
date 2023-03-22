@@ -122,21 +122,26 @@
              {{p.product_name}}
              </a>
             </h3>
-            <div class="product-value" style="margin-left: 60px;">
-             <div class="d-flex">
-              <small class="regular-price">
-               MRP
+            <div class="product-value" >
+                <div class="current-price">
+                    <i class="fa fa-rupee">
+                 {{p.offer_price}}
+                </i>&nbsp;
+                <!-- </div> -->
+             <!-- <div class="d-flex"> -->
+              <small class="regular-price" style="font-weight: bold;color: black;">
+               MRP:&nbsp;
+               <i class="fa fa-rupee">
                <del>
                 {{p.mrp}}
                </del>
+               </i>
               </small>
-              <div class="off-price">
+              <!-- <div class="off-price">
               {{p.offer_percentage}}% off
-              </div>
+              </div> -->
              </div>
-             <div class="current-price" style="margin-right:50px;">
-             {{p.offer_price}}
-             </div>
+             
             </div>
            </div>
           </div>

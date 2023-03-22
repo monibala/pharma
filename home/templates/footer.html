@@ -1,4 +1,6 @@
 {%  load static %}
+{% load loadheader %}
+{% with ''|getaboutdata as aboutdata %}
 <footer class="site-footer footer-padding-lg bg-light mt-8">
     <div class="container-fluid theme-container">
      <div class="upper-footer">
@@ -6,43 +8,58 @@
        <div class="col-lg-4 col-md-3 col-12">
         <div class="widget">
          <div class="footer-brand">
-          <img alt="" src="{% static 'assets/img/logo.png' %}"/>
+             <!--<h5>DISPACK</h5>-->
+          <img alt="" src="/media/{{aboutdata.0.logo}}" style="width:150px;height: 100px;margin-left:100px; margin-top: -20px;"/>
+          <!--<img alt="" src="{% static 'assets/img/logo.png' %}"/>-->
          </div>
-         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore numquam sit optio consectetur et pariatur modi officiis veritatis repellat alias?
-         </p>
+         <p style="font-weight: 600; margin-left:100px; font-size: 18px;margin-top:-30px">
+          <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore numquam sit optio consectetur et pariatur modi officiis veritatis repellat alias? -->
+        {{aboutdata.0.address | capfirst}} <br>
+        {{aboutdata.0.phone}} <br>
+        {{aboutdata.0.otherPhone}} <br>
+        {{aboutdata.0.email}} <br>
+        {{aboutdata.0.website}} <br> <br>
+        <a href="www.facebook.com" style="text-decoration: none;">
+        <i class="fa fa-facebook-square"></i> </a>&nbsp;&nbsp;
+        <a href="www.twitter.com" style="text-decoration: none;">
+        <i class="fa fa-twitter-square" style="text-decoration: none;"></i> </a>&nbsp;&nbsp;
+        <a href="www.linkedin.com">
+        <i class="fa fa-linkedin-square" style="text-decoration: none;"></i> </a>&nbsp;&nbsp;
+        <a href="www.instagram.com" style="text-decoration: none;">
+        <i class="fa fa-instagram"></i></a>
+        </p>
         </div>
        </div>
        <div class="col-lg-2 col-md-3 col-12">
-        <div class="widget">
+        <div class="widget" >
          <div class="widget-title">
-          <h3>
+          <h3 style="font-size: 18px;">
            Usefull Links
           </h3>
          </div>
          <ul>
           <li>
-           <a href="{% url 'index' %}">
+           <a href="{% url 'index' %}"  style="font-size: 18px;">
             Documentation
            </a>
           </li>
           <li>
-           <a href="{% url 'index' %}">
+           <a href="{% url 'index' %}" style="font-size: 18px;">
             Support
            </a>
           </li>
           <li>
-           <a href="{% url 'policy' %}">
+           <a href="{% url 'policy' %}" style="font-size: 18px;">
             Privacy &amp; terms
            </a>
           </li>
           <li>
-           <a href="#">
+           <a href="#" style="font-size: 18px;">
             Sitemap
            </a>
           </li>
           <li>
-           <a href="{% url 'index' %}">
+           <a href="{% url 'index' %}" style="font-size: 18px;">
             Customers
            </a>
           </li>
@@ -52,33 +69,33 @@
        <div class="col-lg-2 col-md-3 col-12">
         <div class="widget">
          <div class="widget-title">
-          <h3>
+          <h3 style="font-size: 18px;">
            Help
           </h3>
          </div>
          <ul>
           <li>
-           <a href="{% url 'index' %}">
+           <a href="{% url 'index' %}" style="font-size: 18px;">
             Home
            </a>
           </li>
           <li>
-           <a href="{% url 'about' %}">
+           <a href="{% url 'about' %}" style="font-size: 18px;">
             About Us
            </a>
           </li>
           <li>
-           <a href="#">
+           <a href="#" style="font-size: 18px;">
             Business Partnership
            </a>
           </li>
           <li>
-           <a href="{% url 'blog' %}">
+           <a href="{% url 'blog' %}" style="font-size: 18px;">
             Blogs
            </a>
           </li>
           <li>
-           <a href="{% url 'contact' %}">
+           <a href="{% url 'contact' %}" style="font-size: 18px;">
             Contact Us
            </a>
           </li>
@@ -88,69 +105,70 @@
        <div class="col-lg-2 col-md-3 col-12">
         <div class="widget">
          <div class="widget-title">
-          <h3>
+          <h3 style="font-size: 18px;">
            Policy
           </h3>
          </div>
          <ul>
           <li>
-           <a href="{% url 'policy' %}">
+           <a href="{% url 'policy' %}"  style="font-size: 18px;">
             Privacy policy
            </a>
           </li>
           <li>
-           <a href="{% url 'policy' %}">
+           <a href="{% url 'policy' %}" style="font-size: 18px;">
             Terms and Conditions
            </a>
           </li>
           <li>
-           <a href="{% url 'policy' %}">
+           <a href="{% url 'policy' %}" style="font-size: 18px;">
             Return Policy
            </a>
           </li>
           <li>
-           <a href="{% url 'policy' %}">
+           <a href="{% url 'policy' %}" style="font-size: 18px;">
             Refund Policy
            </a>
           </li>
           <li>
-           <a href="{% url 'policy' %}">
+           <a href="{% url 'policy' %}" style="font-size: 18px;">
             Ip Policy
            </a>
           </li>
          </ul>
         </div>
        </div>
+       {% comment %}
        <div class="col-lg-2 col-md-3 col-12">
         <div class="widget">
          <div class="widget-title">
-          <h3>
+          <h3 style="font-size: 18px;">
            Social
           </h3>
          </div>
          <ul>
           <li>
-           <a href="#">
-            Facebook
+           <a href="#" style="font-size: 18px;">
+            <i class="fa fa-facebook-square"></i> Facebook
            </a>
           </li>
           <li>
-           <a href="#">
+           <a href="#" style="font-size: 18px;">
             Google
            </a>
           </li>
           <li>
-           <a href="#">
+           <a href="#" style="font-size: 18px;">
             Pinterest
            </a>
           </li>
           <li>
-           <a href="#">
+           <a href="#" style="font-size: 18px;">
             Linkedin
            </a>
           </li>
           <li>
-           <a href="#">
+           <a href="#" style="font-size: 18px;">
             Dribble
            </a>
           </li>
@@ -158,12 +176,15 @@
         </div>
        </div>
       </div>
+      {% endcomment %}
      </div>
      <div class="lower-footer">
       <div class="row">
        <div class="col-md-6 text-lg-left">
         <p class="mb-4 mb-md-0 text-muted">
-         Copyright Â© 2021 Hospitania By Dsahathemes | All rights reserved.
+            © 2023 All Rights Reserved By CyberInstant
+
+         <!--Copyright Â© 2021 Hospitania By Dsahathemes | All rights reserved.-->
         </p>
        </div>
        <div class="col-md-6">
@@ -360,6 +381,8 @@
      </div>
     </div>
    </div>
+   
+ {% endwith %}
    <!-- Required vendor scripts (Do not remove) -->
    <script src="{% static 'assets/js/jquery-2.2.4.min.js' %}">
    </script>

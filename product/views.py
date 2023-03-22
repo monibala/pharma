@@ -17,17 +17,18 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate
 from django.core.paginator import Paginator
+from django.contrib import messages as sms
 # Create your views here.
 def productsingle(request,slug):
-    if request.user.is_authenticated:
+    # if request.user.is_authenticated:
         prod = Product.objects.get(slug=slug)
         rev = reviews.objects.filter(product_name__startswith=prod.product_name)
         cat_prod = Product.objects.filter(category_name=prod.category_name)
         res ={'prod':prod, 'cat_prod':cat_prod, 'rev':rev}
-    else:
-        messages.info(request,'Please Login')
-        return redirect('login')
-    return render(request, 'productsingle.html', res)
+    # else:
+        # messages.info(request,'Please Login')
+        # return redirect('login')
+        return render(request, 'productsingle.html', res)
 def review(request):
     prod = Product.objects.all()
     
@@ -150,7 +151,7 @@ def checkout(request):
                 cost = (p.quantity * p.product.mrp)
                 amount += cost
                 # order = OrderItem(user=user,name=customer.name,email=customer_name.email,mobile=customer_name.mobile,address=customer_name.apartmentname,city=customer_name.city,state=customer_name.state,order_id=uuid.uuid4(),product=p.product,quntity=p.quantity)        
-                order = OrderItem(user=user,order_id=uuid.uuid4(),product=p.product,quntity=p.quantity)
+                order = OrderItem(user=user,order_id=uuid.uuid4(),product=p.product,quntity=p.quantity,code=p.code,size=p.size,color=p.color)
                 order.save()
             totalamount = amount + shipping_amount
             # order = OrderItem(user=user,name=customer_name.name,email=customer_name.email,mobile=customer_name.mobile,address=customer_name.apartmentname,city=customer_name.city,state=customer_name.state,amount=totalamount,order_id=uuid.uuid4(),product=p.product,quntity=p.quantity)        
@@ -163,8 +164,9 @@ def checkout(request):
         Cart.objects.filter(user=request.user).delete()
         # messages.success(request, 'Your order placed')
         res = {'customer':customer,'amount':amount,'totalamount':totalamount, 'cart_item':cart_item}
+        print(amount)
         return render(request, 'checkout.html',res )
-        return render(request, 'checkout.html')
+        # return render(request, 'checkout.html')
     else:
         messages.warning(request,'Please Login Or Register.')
         return redirect('login_user')
@@ -183,7 +185,7 @@ def show_cart(request):
         # print(cart_product)
         if cart_product:
             for p in cart_product:
-                tempamount = (p.quantity * p.product.mrp)
+                tempamount = (p.quantity * p.product.offer_price)
                 amount += tempamount
                 totalamount = amount + shipping_amount
 
@@ -199,7 +201,7 @@ def show_cart(request):
     return render(request, 'cart.html')
 # def empty(request):
 #     return render(request,'empty.html')
-@login_required
+# @login_required
 def cart(request):
     if request.user.is_authenticated:
         
@@ -215,12 +217,12 @@ def cart(request):
         if item_already_in_cart:
             return redirect('show_cart')
         else:
-            Cart(user=user,product=prod,quantity=quantity).save()
+            Cart(user=user,product=prod,quantity=quantity,code=prod.code,color=prod.color,size=prod.size).save()
            
         return redirect('show_cart')
     else:
         messages.warning(request,'Please Login Or Register.')
-        return redirect('login_user')  
+        return redirect('login')  
 @login_required
 def delete(request):
     prod = request.GET.get('remove')
@@ -356,20 +358,39 @@ def address(request):
         addr =  Customer_info.objects.filter(user=user)
         return render(request,'address.html',{'addr':addr})
     return render(request,'address.html',{'addr':addr})
+from geopy.geocoders import Nominatim
 def checkpincode(request):
-    import requests
+    # Importing required module
 
-    url = "https://india-pincode-with-latitude-and-longitude.p.rapidapi.com/api/v1/pincode/600001"
+    zipcode = request.POST.get('zipcode')
+    # Using Nominatim Api
+    geolocator = Nominatim(user_agent="geoapiExercises")
+    # if request.method=="POST":
+        # Zipcode input
+    # zipcode = request.POST['zipcode']
+    print(zipcode)
+    # Using geocode()
+    location = geolocator.geocode(zipcode)
 
-    headers = {
-        "X-RapidAPI-Key": "SIGN-UP-FOR-KEY",
-        "X-RapidAPI-Host": "india-pincode-with-latitude-and-longitude.p.rapidapi.com"
-    }
+    # Displaying address details
+    print("Zipcode:",zipcode)
+    print("Details of the Zipcode:")
+    print(location)
+    sms.success(request,'Delivery Available')
+    return redirect(request.META['HTTP_REFERER'])
+    # import requests
 
-    response = requests.request("GET", url, headers=headers)
+    # url = "https://india-pincode-with-latitude-and-longitude.p.rapidapi.com/api/v1/pincode/600001"
 
-    print(response.text)
-    return redirect('checkout')
+    # headers = {
+    #     "X-RapidAPI-Key": "SIGN-UP-FOR-KEY",
+    #     "X-RapidAPI-Host": "india-pincode-with-latitude-and-longitude.p.rapidapi.com"
+    # }
+
+    # response = requests.request("GET", url, headers=headers)
+
+    # print(response.text)
+    # return redirect('checkout')
 def empty(request):
      Cart.objects.filter(user=request.user).delete()
      
