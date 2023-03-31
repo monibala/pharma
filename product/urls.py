@@ -15,4 +15,5 @@ urlpatterns = [
     path('empty/', views.empty, name='empty'),
     path('checkpincode/', views.checkpincode, name='checkpincode'),
     path('pay/', views.pay, name='pay'),
+    path('send_notification/', views.send_notification,name='send_notification'),
 ]

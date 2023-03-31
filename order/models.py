@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 
 from product.models import Cart, Customer_info, Product
@@ -20,15 +21,11 @@ STATUS_CHOICES=(
 class OrderItem(models.Model):
     # cartitem = models.ManyToManyField(Cart)
     product=models.ForeignKey(Product,on_delete=models.CASCADE,default=1)
+    cart_item=models.ManyToManyField(Cart)
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='prod')
     order_id = models.CharField(unique=True, max_length=100, null=True, blank=True, verbose_name="product_pyment_id")
-    # name=models.CharField(max_length=50,null=True)
-    # address=models.TextField(null=True)
-    # city=models.CharField(max_length=50,null=True)
-    # state = models.CharField(max_length=100,null=True)
-    # zipcode=models.IntegerField(default=1)
-    # mobile=models.IntegerField(null=True)
-    # email=models.EmailField(null=True)
+    purchase_date = models.DateTimeField(auto_now_add=True,null=True)
+    
     quntity=models.IntegerField(default=1)
     payment=models.CharField(max_length=100,null=True)
     amount=models.IntegerField(default=1)
@@ -38,20 +35,20 @@ class OrderItem(models.Model):
     # quantity = models.PositiveIntegerField(default =1)
 
     status = models.CharField(max_length=50 , choices=STATUS_CHOICES, default ='Pending')
-    order_date=models.DateTimeField(auto_now_add=True,null=True)
+    order_date=models.DateTimeField(default=datetime.datetime.now())
     def save(self, *args, **kwargs):
         if self.order_id is None and self.order_date and self.id:
             self.order_id = self.order_date.strftime('PAY2ME%Y%m%dODR') + str(self.id)
         return super().save(*args, **kwargs)
     def __str__(self):
-        return self.product.product_name
+        return self.order_id
 
 class update_order(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,default=1)
-    product=models.ManyToManyField(OrderItem)
+    product=models.ManyToManyField(Cart)
     name=models.CharField(max_length=50,null=True)
     
-    
+    amount=models.IntegerField(default=1,null=True)
     
     address=models.TextField(null=True)
     city=models.CharField(max_length=50,null=True)
@@ -66,3 +63,8 @@ class update_order(models.Model):
     #     if self.updt_id is None and self.updt_date and self.id:
     #         self.updt_id = self.updt_date.strftime('PAYMENT%Y%m%dODR') + str(self.id)
     #     return super().save(*args, **kwargs)
+class recentproduct(models.Model):
+    product = models.ManyToManyField(Cart)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    def __str__(self):
+        return self.user.username

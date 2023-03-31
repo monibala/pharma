@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    
+
+    <h1>Submit WhatsApp Contact</h1>
+
+    <form action="{% url 'send_notification' %}" method="post">
+        {% csrf_token %}
+        <label for="your_name">Your WhatsApp number: </label> 
+        <input id="user_number" type="number" name="user_number" >
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

@@ -10,7 +10,7 @@ class CustomerRegistrationForm(UserCreationForm):
     email = forms.CharField(label='Email',required=True , widget=forms.EmailInput(attrs={'class':'form-control'}))
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control'}))
     password1 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'class':'form-control'}))
-
+    mobile = forms.IntegerField(label='mobile',required=True)
     class Meta:
         model = User
         fields = ['username','email','password1','password2']

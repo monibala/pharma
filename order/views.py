@@ -46,7 +46,7 @@ def paymentdone(request):
     user = request.user
     custid = request.GET.get('custid')
     print(custid)
-    customer = Customer_info.objects.get(id = custid)
+    customer = Customer_info.objects.get(email=user.email)
     cart = Cart.objects.filter(user=user)
     for c in cart:
         OrderItem(user=user, customer=customer,product=c.product, quantity = c.quantity).save()
@@ -62,4 +62,9 @@ def removewishitems(request,id):
     rem = wishitems.objects.filter(id=id)
     rem.delete()
     return redirect('show_wishlist')
-   
+def recent_prod(request):
+    if request.user.is_authenticated:
+        user = request.user
+        res = {}
+        res['prod'] = OrderItem.objects.filter(user=user)
+        return render(request,'recent_prod.html',res)

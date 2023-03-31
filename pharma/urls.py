@@ -31,3 +31,5 @@ urlpatterns = [
     path('paypalpayapp/',include('paypalpayapp.urls')),
     path('paypal/', include('paypal.standard.ipn.urls')),
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Handle 404 error
+handler404 = 'home.views.error_404_view'

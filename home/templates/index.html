@@ -591,7 +591,7 @@
          {{p.product_name}}
          </a>
         </h3>
-        <div class="product-value" style="margin-left:40px;">
+        <!-- <div class="product-value" style="margin-left:40px;">
          <div class="d-flex">
           <small class="regular-price">
            MRP
@@ -606,7 +606,27 @@
          <div class="current-price" style="margin-right:50px;">
           {{p.offer_price}}
          </div>
-        </div>
+        </div> -->
+        <div class="product-value" >
+          <div class="current-price">
+              <i class="fa fa-rupee">
+           {{p.offer_price}}
+          </i>&nbsp;
+          <!-- </div> -->
+       <!-- <div class="d-flex"> -->
+        <small class="regular-price" style="font-weight: bold;color: black;">
+         MRP:&nbsp;
+         <i class="fa fa-rupee">
+         <del>
+          {{p.mrp}}
+         </del>
+         </i>
+        </small>
+        <!-- <div class="off-price">
+        {{p.offer_percentage}}% off
+        </div> -->
+       </div>
+       </div>
        </div>
        
       </div>
@@ -1062,6 +1082,7 @@
    </div>
   </div> -->
   <!-- //brand -->
+  {% comment %}
   <div class="pt-5">
    <div class="py-5 bg-light">
     <div class="container-fluid theme-container">
@@ -1157,12 +1178,13 @@
     </div>
    </div>
   </div>
+  {% endcomment %}
   <div class="py-5">
    <div class="container-fluid theme-container">
     <div class="row mb-4">
      <div class="col">
       <h5 class="product-heading">
-       Fitness Products
+       Baskets
       </h5>
      </div>
      <div class="col-auto text-md-right">
@@ -1198,7 +1220,7 @@
          {{d.product_name}}
         </a>
        </h3>
-       <div class="product-value" style="margin-left: 40px;">
+       <!-- <div class="product-value" style="margin-left: 40px;">
         <div class="d-flex">
          <small class="regular-price">
           MRP
@@ -1214,7 +1236,28 @@
          {{d.offer_price}}
         </div>
        </div>
-      </div>
+      </div> -->
+      <div class="product-value" >
+        <div class="current-price">
+            <i class="fa fa-rupee">
+         {{d.offer_price}}
+        </i>&nbsp;
+        <!-- </div> -->
+     <!-- <div class="d-flex"> -->
+      <small class="regular-price" style="font-weight: bold;color: black;">
+       MRP:&nbsp;
+       <i class="fa fa-rupee">
+       <del>
+        {{d.mrp}}
+       </del>
+       </i>
+      </small>
+      <!-- <div class="off-price">
+      {{p.offer_percentage}}% off
+      </div> -->
+     </div>
+</div>
+</div>
     
      </div>
      {% endfor %}
@@ -1506,74 +1549,8 @@
        </a>
       </div>
       {% endfor %}
-      <!-- <div class="product-categories">
-       <a class="product-img bg-white" href="#">
-        <img alt="" class="" src="static/assets/img/category/category-2.png"/>
-       </a>
-       <a class="product-info" href="#">
-        Healthcare Devices
-       </a>
-      </div>
-      <div class="product-categories">
-       <a class="product-img bg-white" href="#">
-        <img alt="" class="" src="static/assets/img/category/category-3.png"/>
-       </a>
-       <a class="product-info" href="#">
-        Summer Essentials
-       </a>
-      </div>
-      <div class="product-categories">
-       <a class="product-img bg-white" href="#">
-        <img alt="" class="" src="static/assets/img/category/category-4.png"/>
-       </a>
-       <a class="product-info" href="#">
-        Healthcare Devices
-       </a>
-      </div>
-      <div class="product-categories">
-       <a class="product-img bg-white" href="#">
-        <img alt="" class="" src="static/assets/img/category/category-5.png"/>
-       </a>
-       <a class="product-info" href="#">
-        Summer Essentials
-       </a>
-      </div>
-      <div class="product-categories">
-       <a class="product-img bg-white" href="#">
-        <img alt="" class="" src="static/assets/img/category/category-6.png"/>
-       </a>
-       <a class="product-info" href="#">
-        Healthcare Devices
-       </a>
-      </div>
-      <div class="product-categories">
-       <a class="product-img bg-white" href="#">
-        <img alt="" class="" src="static/assets/img/category/category-7.png"/>
-       </a>
-       <a class="product-info" href="#">
-        Healthcare Devices
-       </a>
-      </div>
-      <div class="product-categories">
-       <a class="product-img bg-white" href="#">
-        <img alt="" class="" src="static/assets/img/category/category-1.png"/>
-       </a>
-       <a class="product-info" href="#">
-        Healthcare Devices
-       </a>
-      </div>
-      <div class="product-categories">
-       <a class="product-img bg-white" href="#">
-        <img alt="" class="" src="static/assets/img/category/category-2.png"/>
-       </a>
-       <a class="product-info" href="#">
-        Healthcare Devices
-       </a>
-      </div>
-     </div>
+      
     </div>
-   </div> -->
-  </div>
   </div>
   </div>
   <div class="pt-5">
@@ -1581,7 +1558,7 @@
     <div class="row mb-4">
      <div class="col">
       <h5 class="product-heading">
-       Nutritional Products
+       Hampers
       </h5>
      </div>
      <div class="col-auto text-md-right">
@@ -1617,22 +1594,26 @@
        {{d.product_name}}
         </a>
        </h3>
-       <div class="product-value" style="margin-left:40px;">
-        <div class="d-flex">
-         <small class="regular-price">
-          MRP
-          <del>
-           {{d.mrp}}
-          </del>
-         </small>
-         <div class="off-price">
-         {{d.offer_percentage}}% off
-         </div>
-        </div>
-        <div class="current-price" style="margin-right:50px;">
-        {{d.offer_price}}
-        </div>
-       </div>
+       <div class="product-value" >
+        <div class="current-price">
+            <i class="fa fa-rupee">
+         {{d.offer_price}}
+        </i>&nbsp;
+        <!-- </div> -->
+     <!-- <div class="d-flex"> -->
+      <small class="regular-price" style="font-weight: bold;color: black;">
+       MRP:&nbsp;
+       <i class="fa fa-rupee">
+       <del>
+        {{d.mrp}}
+       </del>
+       </i>
+      </small>
+      <!-- <div class="off-price">
+      {{p.offer_percentage}}% off
+      </div> -->
+     </div>
+</div>
       </div>
      </div>
      {% endfor %}

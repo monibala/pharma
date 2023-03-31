@@ -1,11 +1,16 @@
+from django.shortcuts import get_object_or_404, render
+
+# Create your views here.
+import datetime
 import uuid
+from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from category.models import Category, SubCategory
-from order.models import OrderItem, update_order
+from order.models import OrderItem, recentproduct, update_order
 from product.forms import  MyPasswordChangeForm
 from product.models import Cart, Product, reviews
 from django.db.models import Q
@@ -116,6 +121,9 @@ def products(request):
 #     return render(request, 'checkout.html', {'amount':amount,'customer':customer,'totalamount':totalamount, 'cart_item':cart_item})
     
     # return render(request, 'checkout.html', {'amount':amount,'customer':customer,'totalamount':totalamount, 'cart_item':cart_item})
+from twilio.rest import Client
+TWILIO_ACCOUNT_SID = 'AC7f2e383f0e9ba57d9d1890eb8738aef7'
+TWILIO_AUTH_TOKEN = 'ac94fa76bfee0c2b7c587a9cae3ecaf3'
 def checkout(request):
     if request.user.is_authenticated:
         user = request.user
@@ -133,10 +141,28 @@ def checkout(request):
             city = request.POST.get('city')
             upt = update_order(user = user, name=name,email=email,mobile=mobile,address=address,state=state,city=city)
             # print(check)
+            # upt.amount=Cart.total_cost
             upt.save()
-            # upt = update_order(user=user,name=name,email=email,mobile=mobile,address=address,city=city,state=state)
-            # upt.save()
-        customer = Customer_info.objects.filter(user=user)
+            
+            up=update_order.objects.get(user=user,mobile=mobile,email=email,address=address)
+            order_details = {
+                    'amount': up.amount,
+                    'item': up.product,
+                    'date_of_delivery': '3-4 days',
+                    'address': up.address
+                }
+            client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+            message = client.messages.create(
+            from_='whatsapp:+14155238886',
+            body='Your {} order of {} has shipped and should be delivered on {}. Details: {}'.format(
+                order_details['amount'], order_details['item'], order_details['date_of_delivery'],
+                order_details['address']),
+            to='whatsapp:+{}'.format(mobile)
+        )
+            print(mobile)
+            print(message.sid)
+            return HttpResponse('Great! Expect a message...')
+        customer = Customer_info.objects.filter(email=user.email)
         # customer_name = Customer_info.objects.get(user=user)
         print(customer)
         # print(customer_name)
@@ -148,20 +174,22 @@ def checkout(request):
             
         if cart_product:
             for p in cart_product:
-                cost = (p.quantity * p.product.mrp)
+                cost = (p.quantity * p.product.offer_price)
                 amount += cost
                 # order = OrderItem(user=user,name=customer.name,email=customer_name.email,mobile=customer_name.mobile,address=customer_name.apartmentname,city=customer_name.city,state=customer_name.state,order_id=uuid.uuid4(),product=p.product,quntity=p.quantity)        
-                order = OrderItem(user=user,order_id=uuid.uuid4(),product=p.product,quntity=p.quantity,code=p.code,size=p.size,color=p.color)
-                order.save()
+                OrderItem.objects.get_or_create(user=user,order_id=uuid.uuid4(),product=p.product,quntity=p.quantity,code=p.code,size=p.size,color=p.color)
+                # order.save()
+                
             totalamount = amount + shipping_amount
             # order = OrderItem(user=user,name=customer_name.name,email=customer_name.email,mobile=customer_name.mobile,address=customer_name.apartmentname,city=customer_name.city,state=customer_name.state,amount=totalamount,order_id=uuid.uuid4(),product=p.product,quntity=p.quantity)        
             # order.save()
-            order.amount=totalamount   
+            # order = OrderItem.objects.get(user=user,order_date=datetime.datetime.now())
+            # order.amount=totalamount   
             # upt = update_order(user=user,name=name,email=email,mobile=mobile,address=address,city=city,state=state)
             # upt.save()
             # upt.product.add(order)
             # To clear cart
-        Cart.objects.filter(user=request.user).delete()
+            Cart.objects.filter(user=request.user).delete()
         # messages.success(request, 'Your order placed')
         res = {'customer':customer,'amount':amount,'totalamount':totalamount, 'cart_item':cart_item}
         print(amount)
@@ -170,7 +198,45 @@ def checkout(request):
     else:
         messages.warning(request,'Please Login Or Register.')
         return redirect('login_user')
+from twilio.rest import Client
+TWILIO_ACCOUNT_SID = 'AC7f2e383f0e9ba57d9d1890eb8738aef7'
+TWILIO_AUTH_TOKEN = 'ac94fa76bfee0c2b7c587a9cae3ecaf3'
+def send_notification(request):
+    today = datetime.date.today()
+    print(today)
     
+    # date_tdy = today.date
+    # print(date_tdy)
+    cart  = update_order.objects.get(user=request.user)
+    prod = cart.product.all()
+    order_details = {
+    'amount': OrderItem.total_amount,
+    'item': cart.product.all(),
+    'date_of_delivery': '3-4 days',
+    'address': cart.address
+}
+    print(order_details['item'])
+    res={}
+    res['cart'] = Cart.objects.filter(user=request.user)
+    client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+
+    if request.method == 'POST':
+        user_whatsapp_number = request.POST['user_number']
+        print(user_whatsapp_number)
+        message = client.messages.create(
+            from_='whatsapp:+14155238886',
+            body='Your {} order of {} has shipped and should be delivered on {}. Details: {}'.format(
+                order_details['amount'], {prod}, order_details['date_of_delivery'],
+                order_details['address']),
+            to='whatsapp:+{}'.format(user_whatsapp_number)
+        )
+
+        print(user_whatsapp_number)
+        print(message.sid)
+        return HttpResponse('Great! Expect a message...')
+
+    return render(request, 'phone.html')
+  
 @login_required
 def show_cart(request):
     if request.user.is_authenticated:
@@ -359,24 +425,30 @@ def address(request):
         return render(request,'address.html',{'addr':addr})
     return render(request,'address.html',{'addr':addr})
 from geopy.geocoders import Nominatim
+import re
 def checkpincode(request):
-    # Importing required module
+    # # Importing required module
 
     zipcode = request.POST.get('zipcode')
-    # Using Nominatim Api
-    geolocator = Nominatim(user_agent="geoapiExercises")
-    # if request.method=="POST":
-        # Zipcode input
-    # zipcode = request.POST['zipcode']
-    print(zipcode)
-    # Using geocode()
-    location = geolocator.geocode(zipcode)
+    # # Using Nominatim Api
+    # geolocator = Nominatim(user_agent="geoapiExercises")
+    # # if request.method=="POST":
+    #     # Zipcode input
+    # # zipcode = request.POST['zipcode']
+    # print(zipcode)
+    # # Using geocode()
+    # location = geolocator.geocode(zipcode)
 
-    # Displaying address details
-    print("Zipcode:",zipcode)
-    print("Details of the Zipcode:")
-    print(location)
-    sms.success(request,'Delivery Available')
+    # # Displaying address details
+    # print("Zipcode:",zipcode)
+    # print("Details of the Zipcode:")
+    # print(location)
+    print(zipcode)
+    p = re.compile('^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$')
+    if re.match(p,zipcode):
+        sms.success(request,'Delivery availble')
+    else:
+        sms.error(request,'Not Deliverd')
     return redirect(request.META['HTTP_REFERER'])
     # import requests
 

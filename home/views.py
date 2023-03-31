@@ -1,4 +1,6 @@
+import os
 from django.shortcuts import render
+import pywhatkit as pwk
 from home.models import HomeSlider, Prescriptions
 
 
@@ -53,21 +55,53 @@ def logout_view(request):
     Cart.objects.filter(user=request.user).delete()
     logout(request)
     return redirect('index')
+from twilio.rest import Client
+TWILIO_ACCOUNT_SID = 'AC7f2e383f0e9ba57d9d1890eb8738aef7'
+TWILIO_AUTH_TOKEN = 'ac94fa76bfee0c2b7c587a9cae3ecaf3'
 def register(request):
-    
-	
-    if request.method == 'POST':
-        form = CustomerRegistrationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            # user = form.save()
-            # login(request, user)
+    if request.method=="POST":
+        username = request.POST['username']
+        email =request.POST['email']
+        mobile = request.POST['mobile']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+        user = User.objects.create_user(username=username,email=email,password=password1)
+        user.save()
+        c = Customer_info(name=username,email=email,mobile=mobile)
+        print(c)
+        c.save()
+        # client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+        # message = client.messages.create(
+        #     from_='whatsapp:+918056071345',
+        #     body='Hi',
+        #     to='whatsapp:+{}'.format(mobile)
+        # )
+
+        # print(mobile)
+        # print(message.sid)
+        # account_sid = os.environ['TWILIO_ACCOUNT_SID']
+        # auth_token = os.environ['TWILIO_AUTH_TOKEN']
+        # client = Client(account_sid, auth_token)
+
+        # message = client.messages.create(
+        #                       body='Hello there!',
+        #                       from_='whatsapp:+918056071345',
+        #                       to='whatsapp:+919940977404'
+        #                   )
+
+        # print(message.sid)
+    # if request.method == 'POST':
+    #     form = CustomerRegistrationForm(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #         # user = form.save()
+    #         # login(request, user)
             
-            messages.success(request, "Registration successful." )
-            return redirect("index")
-        messages.error(request, "Unsuccessful registration. Invalid information.")
-    else:
-        form =CustomerRegistrationForm()
+    #         messages.success(request, "Registration successful." )
+    #         return redirect("index")
+    #     messages.error(request, "Unsuccessful registration. Invalid information.")
+    # else:
+    #     form =CustomerRegistrationForm()
     # else:
     #     form = CustomerRegistrationForm()
     # return render(request, 'index.html', {'form': form, 'title':'register here'})
@@ -114,3 +148,8 @@ def search(request):
 #     context={}
 #     data =Product.objects.filter(product_name__icontains=request.GET.get('search'))
 #     return render(request, "products.html", {'data':data})
+def error_404_view(request, exception):
+   
+    # we add the path to the 404.html file
+    # here. The name of our HTML file is 404.html
+    return render(request, '404.html')

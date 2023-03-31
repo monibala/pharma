@@ -1,0 +1,154 @@
+{% extends 'base.html' %} 
+{% block content %} 
+{% load static %}
+{% include 'orderbase.html' %}
+       <div class="col-lg-8 col-md-8 col-12">
+        <div class="ml-0 ml-md-4">
+         <div class="d-none d-md-block">
+          <div class="row mb-md-5">
+           <div class="col">
+            <h5 class="mb-1 text-white">
+             Wishlist
+            </h5>
+            <p class="mb-0 text-white small">
+             You have full control to manage your own account setting.
+            </p>
+           </div>
+           <div class="col-auto">
+            <a class="btn btn-primary btn-sm" href="account.html">
+             <i class="ti-angle-left">
+             </i>
+             go
+                                             back
+            </a>
+           </div>
+          </div>
+         </div>
+         <div class="pt-5">
+         </div>
+         <div class="card">
+          <div class="card-body">
+           <div class="cart_product border-0">
+            {% for items in prod %}
+            <div class="cart_item px-0">
+             <div class="cart_item_image">
+              <img alt="shop" src="/media/{{items.product.image}}"/>
+             </div>
+             <div class="c-item-body">
+              <div class="cart_item_title mb-2">
+               <h4>
+                {{items.product.product_name}}
+               </h4>
+               <!-- <p class="small mb-0 text-muted">
+                bottle of 60 capsules
+               </p> -->
+              </div>
+              <div class="cart_item_price">
+               <div class="product-price">
+                <span>
+                 <strong>
+                  {{items.product.offer_price}}
+                 </strong>
+                 <del>
+                     {{items.product.mrp}}
+                 </del>
+                 <small class="product-discountPercentage">
+                  ( {{items.product.offer_percentage}}% OFF)
+                 </small>
+                </span>
+               </div>
+               <div class="cart_product_remove">
+                <a href="{% url 'cart' %}?prod_id={{items.id}}">
+                 <i class="ti-shopping-cart">
+                 </i>
+                 Add to Cart
+                </a>
+               </div>
+              </div>
+             </div>
+            </div>
+            {% endfor %}
+            <!-- <div class="cart_item px-0">
+             <div class="cart_item_image">
+              <img alt="shop" src="assets/img/product/product-2.png"/>
+             </div>
+             <div class="c-item-body">
+              <div class="cart_item_title mb-2">
+               <h4>
+                1mg Salmon Omega 3 Fish Oil Capsule
+               </h4>
+               <p class="small mb-0 text-muted">
+                bottle of 60 capsules
+               </p>
+              </div>
+              <div class="cart_item_price">
+               <div class="product-price">
+                <span>
+                 <strong>
+                  â¹499
+                 </strong>
+                 <del>
+                  â¹1,000
+                 </del>
+                 <small class="product-discountPercentage">
+                  (50% OFF)
+                 </small>
+                </span>
+               </div>
+               <div class="cart_product_remove">
+                <a href="#">
+                 <i class="ti-trash">
+                 </i>
+                 Remove
+                </a>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="cart_item px-0">
+             <div class="cart_item_image">
+              <img alt="shop" src="assets/img/product/product-3.png"/>
+             </div>
+             <div class="c-item-body">
+              <div class="cart_item_title mb-2">
+               <h4>
+                1mg Salmon Omega 3 Fish Oil Capsule
+               </h4>
+               <p class="small mb-0 text-muted">
+                bottle of 60 capsules
+               </p>
+              </div>
+              <div class="cart_item_price">
+               <div class="product-price">
+                <span>
+                 <strong>
+                  â¹499
+                 </strong>
+                 <del>
+                  â¹1,000
+                 </del>
+                 <small class="product-discountPercentage">
+                  (50% OFF)
+                 </small>
+                </span>
+               </div>
+               <div class="cart_product_remove">
+                <a href="#">
+                 <i class="ti-trash">
+                 </i>
+                 Remove
+                </a>
+               </div>
+              </div>
+             </div>
+            </div> -->
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </main>
+   {% endblock %}

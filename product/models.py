@@ -110,15 +110,15 @@ STATE_CHOICES = (
     ('West Bengal','West Bengal')
 )
 class Customer_info(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     mobile= models.IntegerField(null=True)
     email = models.EmailField(null=True)
-    apartmentname = models.CharField(max_length=200)
-    city= models.CharField(max_length=100)
+    apartmentname = models.CharField(max_length=200,blank=True)
+    city= models.CharField(max_length=100,blank=True)
     zipcode= models.IntegerField(default=1)
-    state= models.CharField(choices=STATE_CHOICES,max_length=100)
-
+    state= models.CharField(choices=STATE_CHOICES,max_length=100,blank=True)
+    
     def __str__(self):
         return str(self.name)
 RATING_CHOICES = (

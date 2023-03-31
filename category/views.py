@@ -10,9 +10,11 @@ def category(request,slug):
     res= {}
     res['category'] = Category.objects.filter(slug=slug)
     catdata = Category.objects.get(slug=slug)
+    
     # res['pagetitle'] = res['category'].category_name
     cat = Category.objects.all()
-    subcat = SubCategory.objects.all()
+    # subcat = SubCategory.objects.all()
+    subcat = SubCategory.objects.filter(category_name=catdata)
     subsubcat = SubSubCategory.objects.all()
     # category = Category.objects.get(id=id)
     # subsubcat = SubSubCategory.objects.filter(category_name__category_name=category)
@@ -22,7 +24,9 @@ def category(request,slug):
 def subcategory(request,slug):
     category = Category.objects.all()
     cat = SubCategory.objects.get(slug=slug)
-    subcat = SubCategory.objects.all()
+    # subcat = SubCategory.objects.all()
+    subcat = SubCategory.objects.filter(category_name=cat.category_name)
+    print(subcat)
     subsubcat = SubSubCategory.objects.all()
     prod = Product.objects.filter(subcategory_name=cat)
     print(prod)
@@ -30,8 +34,8 @@ def subcategory(request,slug):
     return render(request, 'category.html', res)
 def subsubcategory(request,slug):
     data = SubSubCategory.objects.get(slug=slug)
-    subsubcat = SubSubCategory.objects.all()
-    subcat = SubCategory.objects.all()
+    subsubcat = SubSubCategory.objects.filter(name=slug)
+    subcat = SubCategory.objects.filter(category_name=data.category)
     prod = Product.objects.filter(subsubcategory_name=data)
     res= {'prod':prod, 'data':data, 'subcat':subcat, 'subsubcat':subsubcat}
     return render(request, 'category.html', res)

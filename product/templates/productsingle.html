@@ -1,16 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-<!-- Messages -->
-{% for message in messages  %}            
-<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="width:700px;margin-left: 80px;">
-      <strong>Message : </strong> {{ message }}
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      
-    </div>
-{% endfor %} 
+
 <section class="section-padding mt-4" style="margin-left:50px;">
     <div class="container-fluid">
      <div class="row justify-content-between">
@@ -20,22 +11,22 @@
         <div class="big-image-wrapper">
          <div class="product-details-big-image-slider-wrapper slider-for" data-autoplay="false" data-nav="false">
           <div class="single-image">
-           <img alt="slider" src="/media/{{prod.image}}"/>
+           <img alt="slider" src="/media/{{prod.image}}" style="object-fit:cover;width:100%;height:100%">
           </div>
           <div class="single-image">
-           <img alt="slider" src="/media/{{prod.image}}"/>
+           <img alt="slider" src="/media/{{prod.image}}"  style="object-fit: cover;width:100%;height:100%;"/>
           </div>
           <div class="single-image">
-           <img alt="slider" src="/media/{{prod.image}}"/>
+           <img alt="slider" src="/media/{{prod.image}}"  style="object-fit: cover;width:100%;height:100%;"/>
           </div>
           <div class="single-image">
-           <img alt="slider" src="/media/{{prod.image}}"/>
+           <img alt="slider" src="/media/{{prod.image}}"  style="object-fit: cover;width:100%;height:100%;"/>
           </div>
           <div class="single-image">
-           <img alt="slider" src="/media/{{prod.image}}"/>
+           <img alt="slider" src="/media/{{prod.image}}"  style="object-fit: cover;width:100%;height:100%;"/>
           </div>
           <div class="single-image">
-           <img alt="slider" src="/media/{{prod.image}}"/>
+           <img alt="slider" src="/media/{{prod.image}}"  style="object-fit: cover;width:100%;height:100%;"/>
           </div>
          </div>
          <div class="slider-nav product-details-small-image-slider-wrapper" data-autoplay="false" data-nav="false" data-slick-center-mode="true" data-slides-to-show="3">
@@ -116,14 +107,35 @@
            </span>
            {% endfor %}
           </div>
-          <p class="single-grid-product__price">
+          <div class="product-value" >
+            <div class="current-price">
+                <i class="fa fa-rupee">
+             {{prod.offer_price}}
+            </i>&nbsp;
+            <!-- </div> -->
+         <!-- <div class="d-flex"> -->
+          <small class="regular-price" style="font-weight: bold;color: black;">
+           MRP:&nbsp;
+           <i class="fa fa-rupee">
+           <del>
+            {{prod.mrp}}
+           </del>
+           </i>
+          </small>
+          <!-- <div class="off-price">
+          {{p.offer_percentage}}% off
+          </div> -->
+         </div>
+         </div>
+
+          <!-- <p class="single-grid-product__price">
            <span class="discounted-price">
             {{prod.offer_price}}
            </span>
            <span class="main-price discounted">
             {{prod.mrp}}
            </span>
-          </p>
+          </p> -->
           <div class="single-info">
            <span class="d-block text-muted mb-2">
             <strong>
@@ -326,6 +338,17 @@
            </div>
           </div>
           <!-- </form> -->
+          <!-- Messages -->
+{% for message in messages  %}            
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="width:700px;">
+      <strong> {{ message }} </strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      
+    </div>
+{% endfor %} 
+
          </div>
         </div>
         
